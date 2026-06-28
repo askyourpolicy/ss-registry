@@ -1,0 +1,302 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "stitch",
+  "homepage": "https://github.com/askyourpolicy/ss-registry",
+  "items": [
+    {
+      "name": "stitch",
+      "type": "registry:base",
+      "title": "Stitch Design System",
+      "description": "Stitch theme tokens, shadcn Base UI components, utilities, and shared dependencies for framework-agnostic projects.",
+      "dependencies": [
+        "@base-ui/react",
+        "@hookform/resolvers",
+        "@shadcn/react",
+        "class-variance-authority",
+        "clsx",
+        "cmdk",
+        "date-fns",
+        "embla-carousel-react",
+        "input-otp",
+        "@phosphor-icons/react",
+        "react-day-picker",
+        "react-hook-form",
+        "react-resizable-panels",
+        "recharts",
+        "sonner",
+        "tailwind-merge",
+        "tw-animate-css",
+        "vaul",
+        "zod"
+      ],
+      "devDependencies": ["oxfmt", "oxlint"],
+      "files": [
+        {
+          "path": "src/styles/globals.css",
+          "type": "registry:file",
+          "target": "src/styles/globals.css"
+        },
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib",
+          "target": "src/lib/utils.ts"
+        },
+        {
+          "path": "src/hooks/use-mobile.ts",
+          "type": "registry:hook",
+          "target": "src/hooks/use-mobile.ts"
+        },
+        {
+          "path": ".oxfmtrc.json",
+          "type": "registry:file",
+          "target": ".oxfmtrc.json"
+        },
+        {
+          "path": ".oxlintrc.json",
+          "type": "registry:file",
+          "target": ".oxlintrc.json"
+        },
+        {
+          "path": "src/components/ui/accordion.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/alert.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/alert-dialog.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/aspect-ratio.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/attachment.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/avatar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/badge.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/breadcrumb.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/bubble.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/button.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/button-group.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/calendar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/card.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/carousel.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/chart.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/checkbox.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/collapsible.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/command.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/context-menu.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/dialog.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/direction.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/drawer.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/dropdown-menu.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/empty.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/field.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/hover-card.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/input.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/input-group.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/input-otp.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/item.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/kbd.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/label.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/marker.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/menubar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/message.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/message-scroller.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/native-select.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/navigation-menu.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/pagination.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/popover.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/progress.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/radio-group.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/resizable.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/scroll-area.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/select.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/separator.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/sheet.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/sidebar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/skeleton.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/slider.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/sonner.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/spinner.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/switch.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/table.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/tabs.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/textarea.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/toggle.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/toggle-group.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/components/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    }
+  ]
+}
