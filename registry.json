@@ -181,6 +181,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "src/components/ui/json-viewer.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "src/components/ui/kbd.tsx",
           "type": "registry:ui"
         },
