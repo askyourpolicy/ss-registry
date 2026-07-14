@@ -45,6 +45,9 @@
     "react": ">=18",
     "react-dom": ">=18"
   },
+  "overrides": {
+    "immer": "11.1.9"
+  },
   "ignoreScripts": [
     "sharp",
     "unrs-resolver"
