@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "timeline",
+  "title": "Timeline",
+  "description": "Semantic vertical timeline primitives with composable indicator, connector, and content slots.",
+  "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+  "files": [
+    {
+      "path": "src/components/ui/timeline.tsx",
+      "content": "import * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\nfunction Timeline({ className, ...props }: React.ComponentProps<\"ol\">) {\n  return (\n    <ol\n      className={cn(\"m-0 flex list-none flex-col p-0\", className)}\n      data-slot=\"timeline\"\n      {...props}\n    />\n  );\n}\n\nfunction TimelineItem({ className, ...props }: React.ComponentProps<\"li\">) {\n  return (\n    <li\n      className={cn(\"grid grid-cols-[1.75rem_minmax(0,1fr)] gap-3\", className)}\n      data-slot=\"timeline-item\"\n      {...props}\n    />\n  );\n}\n\nfunction TimelineRail({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      className={cn(\"flex min-h-full flex-col items-center\", className)}\n      data-slot=\"timeline-rail\"\n      {...props}\n    />\n  );\n}\n\nfunction TimelineIndicator({ className, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      className={cn(\n        \"flex size-6 shrink-0 items-center justify-center rounded-full bg-muted text-[10px] font-bold text-muted-foreground\",\n        className,\n      )}\n      data-slot=\"timeline-indicator\"\n      {...props}\n    />\n  );\n}\n\nfunction TimelineConnector({ className, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      aria-hidden=\"true\"\n      className={cn(\"mt-1 w-px flex-1 bg-border-subtle\", className)}\n      data-slot=\"timeline-connector\"\n      {...props}\n    />\n  );\n}\n\nfunction TimelineContent({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div className={cn(\"min-w-0 pb-4\", className)} data-slot=\"timeline-content\" {...props} />;\n}\n\nexport {\n  Timeline,\n  TimelineConnector,\n  TimelineContent,\n  TimelineIndicator,\n  TimelineItem,\n  TimelineRail,\n};\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

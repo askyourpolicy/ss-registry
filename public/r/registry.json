@@ -4,32 +4,52 @@
   "homepage": "https://github.com/askyourpolicy/ss-registry",
   "items": [
     {
-      "name": "stitch",
+      "name": "stitch-base",
       "type": "registry:base",
-      "title": "Stitch Design System",
-      "description": "Stitch theme tokens, shadcn Base UI components, utilities, and shared dependencies for framework-agnostic projects.",
+      "title": "Stitch Base",
+      "description": "Framework-agnostic Stitch theme, utilities, and shared React, TypeScript, Tailwind CSS, Base UI, Phosphor, and code-quality standards.",
       "dependencies": [
-        "@base-ui/react",
-        "@hookform/resolvers",
-        "@shadcn/react",
-        "class-variance-authority",
-        "clsx",
-        "cmdk",
-        "date-fns",
-        "embla-carousel-react",
-        "input-otp",
-        "@phosphor-icons/react",
-        "react-day-picker",
-        "react-hook-form",
-        "react-resizable-panels",
-        "recharts",
-        "sonner",
-        "tailwind-merge",
-        "tw-animate-css",
-        "vaul",
-        "zod"
+        "@base-ui/react@^1.6.0",
+        "@phosphor-icons/react@^2.1.10",
+        "class-variance-authority@^0.7.1",
+        "clsx@^2.1.1",
+        "react@^19.2.4",
+        "react-dom@^19.2.4",
+        "tailwind-merge@^3.6.0",
+        "tw-animate-css@^1.4.0"
       ],
-      "devDependencies": ["oxfmt", "oxlint"],
+      "devDependencies": [
+        "@types/react@^19",
+        "@types/react-dom@^19",
+        "oxfmt@^0.56.0",
+        "oxlint@^1.71.0",
+        "shadcn@^4.12.0",
+        "tailwindcss@^4",
+        "typescript@^5"
+      ],
+      "docs": "Import the installed theme once from your application entry point with import \"@/styles/globals.css\". If the application already owns a global Tailwind stylesheet, merge intentionally instead of loading both.",
+      "config": {
+        "$schema": "https://ui.shadcn.com/schema.json",
+        "style": "base-nova",
+        "rsc": false,
+        "tsx": true,
+        "tailwind": {
+          "config": "",
+          "css": "src/styles/globals.css",
+          "baseColor": "neutral",
+          "cssVariables": true,
+          "prefix": ""
+        },
+        "iconLibrary": "phosphor",
+        "rtl": false,
+        "aliases": {
+          "components": "@/components",
+          "utils": "@/lib/utils",
+          "ui": "@/components/ui",
+          "lib": "@/lib",
+          "hooks": "@/hooks"
+        }
+      },
       "files": [
         {
           "path": "src/styles/globals.css",
@@ -42,264 +62,701 @@
           "target": "src/lib/utils.ts"
         },
         {
-          "path": "src/hooks/use-mobile.ts",
-          "type": "registry:hook",
-          "target": "src/hooks/use-mobile.ts"
-        },
-        {
           "path": ".oxfmtrc.json",
           "type": "registry:file",
-          "target": ".oxfmtrc.json"
+          "target": "~/.oxfmtrc.json"
         },
         {
           "path": ".oxlintrc.json",
           "type": "registry:file",
-          "target": ".oxlintrc.json"
-        },
+          "target": "~/.oxlintrc.json"
+        }
+      ]
+    },
+    {
+      "name": "account-menu",
+      "type": "registry:ui",
+      "title": "Account Menu",
+      "description": "Generic avatar and identity dropdown shell with consumer-provided menu actions.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/avatar",
+        "askyourpolicy/ss-registry/button",
+        "askyourpolicy/ss-registry/dropdown-menu"
+      ],
+      "files": [
         {
-          "path": "src/components/ui/accordion.tsx",
+          "path": "src/components/ui/account-menu.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Stitch alert primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/alert.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert Dialog",
+      "description": "Stitch alert dialog primitive.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/button"
+      ],
+      "files": [
         {
           "path": "src/components/ui/alert-dialog.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "app-navigation",
+      "type": "registry:ui",
+      "title": "App Navigation",
+      "description": "Router-neutral application navigation with composable header and sidebar variants.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
-          "path": "src/components/ui/aspect-ratio.tsx",
+          "path": "src/components/ui/app-navigation.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "auth-shell",
+      "type": "registry:ui",
+      "title": "Authentication Shell",
+      "description": "Centered branded authentication layout with composable card and footer slots.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/card",
+        "askyourpolicy/ss-registry/stitch-brand"
+      ],
+      "files": [
         {
-          "path": "src/components/ui/attachment.tsx",
+          "path": "src/components/ui/auth-shell.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Stitch avatar primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/avatar.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Stitch badge primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/badge.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/breadcrumb.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/bubble.tsx",
-          "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Stitch button primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/button.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/button-group.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/calendar.tsx",
-          "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Stitch card primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/card.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/carousel.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/chart.tsx",
-          "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Stitch checkbox primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/checkbox.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "checkbox-card",
+      "type": "registry:ui",
+      "title": "Checkbox Card",
+      "description": "Accessible controlled checkbox card with optional icon and pending state.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/checkbox",
+        "askyourpolicy/ss-registry/label",
+        "askyourpolicy/ss-registry/spinner"
+      ],
+      "files": [
         {
-          "path": "src/components/ui/collapsible.tsx",
+          "path": "src/components/ui/checkbox-card.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "confirm-dialog",
+      "type": "registry:ui",
+      "title": "Confirm Dialog",
+      "description": "Accessible confirmation dialog with controlled state, async pending feedback, and retryable errors.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/alert-dialog",
+        "askyourpolicy/ss-registry/spinner"
+      ],
+      "files": [
         {
-          "path": "src/components/ui/combobox.tsx",
+          "path": "src/components/ui/confirm-dialog.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "data-table-card",
+      "type": "registry:ui",
+      "title": "Data Table Card",
+      "description": "Table-engine-neutral card shell with toolbar, content, footer, and valid empty-table states.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/card",
+        "askyourpolicy/ss-registry/empty",
+        "askyourpolicy/ss-registry/table"
+      ],
+      "files": [
         {
-          "path": "src/components/ui/command.tsx",
+          "path": "src/components/ui/data-table-card.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/context-menu.tsx",
-          "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Stitch dialog primitive.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/button"
+      ],
+      "files": [
         {
           "path": "src/components/ui/dialog.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/direction.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/drawer.tsx",
-          "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "Stitch dropdown menu primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/dropdown-menu.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "empty",
+      "type": "registry:ui",
+      "title": "Empty",
+      "description": "Stitch empty-state primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/empty.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "field",
+      "type": "registry:ui",
+      "title": "Field",
+      "description": "Composable form field, label, description, grouping, and error primitives.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/label",
+        "askyourpolicy/ss-registry/separator"
+      ],
+      "files": [
         {
           "path": "src/components/ui/field.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/hover-card.tsx",
-          "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Stitch input primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/input.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/input-group.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/input-otp.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/item.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/json-viewer.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/kbd.tsx",
-          "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Stitch label primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/label.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "json-card",
+      "type": "registry:ui",
+      "title": "JSON Card",
+      "description": "Card composition for titled, scrollable, and accessible structured JSON.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/card",
+        "askyourpolicy/ss-registry/json-viewer"
+      ],
+      "files": [
         {
-          "path": "src/components/ui/marker.tsx",
+          "path": "src/components/ui/json-card.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "json-viewer",
+      "type": "registry:ui",
+      "title": "JSON Viewer",
+      "description": "Expandable structured JSON viewer with accessible controls and copy actions.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/button",
+        "askyourpolicy/ss-registry/tooltip"
+      ],
+      "files": [
         {
-          "path": "src/components/ui/menubar.tsx",
+          "path": "src/components/ui/json-viewer.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "metric-card",
+      "type": "registry:ui",
+      "title": "Metric Card",
+      "description": "Flexible metric card with tone, delta, icon, and loading treatments.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/card",
+        "askyourpolicy/ss-registry/skeleton"
+      ],
+      "files": [
         {
-          "path": "src/components/ui/message.tsx",
+          "path": "src/components/ui/metric-card.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/message-scroller.tsx",
-          "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "native-select",
+      "type": "registry:ui",
+      "title": "Native Select",
+      "description": "Stitch native select primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/native-select.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "navigable-table-row",
+      "type": "registry:ui",
+      "title": "Navigable Table Row",
+      "description": "Framework-neutral row-wide detail navigation with a native title link and independent nested controls.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/table"
+      ],
+      "files": [
         {
-          "path": "src/components/ui/navigation-menu.tsx",
+          "path": "src/components/ui/navigable-table-row.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "page-header",
+      "type": "registry:ui",
+      "title": "Page Header",
+      "description": "Framework-neutral page heading with breadcrumbs, eyebrow, and action slots.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
-          "path": "src/components/ui/pagination.tsx",
+          "path": "src/components/ui/page-header.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "page-states",
+      "type": "registry:ui",
+      "title": "Page States",
+      "description": "Generic loading, error, and empty page states with safe error messages.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/alert",
+        "askyourpolicy/ss-registry/empty",
+        "askyourpolicy/ss-registry/spinner"
+      ],
+      "files": [
         {
-          "path": "src/components/ui/popover.tsx",
+          "path": "src/components/ui/page-states.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "pagination-controls",
+      "type": "registry:ui",
+      "title": "Pagination Controls",
+      "description": "Controlled one-indexed pagination with compact and numbered-page variants.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/button",
+        "askyourpolicy/ss-registry/native-select"
+      ],
+      "files": [
         {
-          "path": "src/components/ui/progress.tsx",
+          "path": "src/components/ui/pagination-controls.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "search-params",
+      "type": "registry:lib",
+      "title": "Search Params",
+      "description": "Pure immutable URLSearchParams patching and href helpers with defaults and reset keys.",
+      "files": [
         {
-          "path": "src/components/ui/radio-group.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/resizable.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/scroll-area.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/select.tsx",
-          "type": "registry:ui"
-        },
+          "path": "src/lib/search-params.ts",
+          "type": "registry:lib",
+          "target": "src/lib/search-params.ts"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "Stitch semantic separator primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/separator.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/sheet.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/sidebar.tsx",
-          "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Stitch loading skeleton primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/skeleton.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/slider.tsx",
-          "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "sonner",
+      "type": "registry:ui",
+      "title": "Sonner",
+      "description": "Stitch toast primitive powered by Sonner.",
+      "dependencies": ["sonner@^2.0.7"],
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/sonner.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "Stitch spinner primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/spinner.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "status-indicator",
+      "type": "registry:ui",
+      "title": "Status Indicator",
+      "description": "Text-backed status indicator with domain-neutral tones and presentations.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
-          "path": "src/components/ui/switch.tsx",
+          "path": "src/components/ui/status-indicator.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "stitch-brand",
+      "type": "registry:ui",
+      "title": "Stitch Brand",
+      "description": "Inline current-color Stitch mark and lockup with optional application name and subtitle.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
+        {
+          "path": "src/components/ui/stitch-brand.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Stitch table primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/table.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Stitch tabs primitive with contained and line variants.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/tabs.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Stitch textarea primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/textarea.tsx",
           "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "timeline",
+      "type": "registry:ui",
+      "title": "Timeline",
+      "description": "Semantic vertical timeline primitives with composable indicator, connector, and content slots.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
-          "path": "src/components/ui/toggle.tsx",
+          "path": "src/components/ui/timeline.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/toggle-group.tsx",
-          "type": "registry:ui"
-        },
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Stitch tooltip primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
         {
           "path": "src/components/ui/tooltip.tsx",
           "type": "registry:ui"
         }
+      ]
+    },
+    {
+      "name": "stitch-core",
+      "type": "registry:item",
+      "title": "Stitch Core",
+      "description": "Common Stitch primitives and low-opinion shared composites without framework integration.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/alert",
+        "askyourpolicy/ss-registry/alert-dialog",
+        "askyourpolicy/ss-registry/avatar",
+        "askyourpolicy/ss-registry/badge",
+        "askyourpolicy/ss-registry/button",
+        "askyourpolicy/ss-registry/card",
+        "askyourpolicy/ss-registry/checkbox",
+        "askyourpolicy/ss-registry/confirm-dialog",
+        "askyourpolicy/ss-registry/data-table-card",
+        "askyourpolicy/ss-registry/dialog",
+        "askyourpolicy/ss-registry/dropdown-menu",
+        "askyourpolicy/ss-registry/empty",
+        "askyourpolicy/ss-registry/field",
+        "askyourpolicy/ss-registry/input",
+        "askyourpolicy/ss-registry/label",
+        "askyourpolicy/ss-registry/native-select",
+        "askyourpolicy/ss-registry/navigable-table-row",
+        "askyourpolicy/ss-registry/search-params",
+        "askyourpolicy/ss-registry/separator",
+        "askyourpolicy/ss-registry/sonner",
+        "askyourpolicy/ss-registry/spinner",
+        "askyourpolicy/ss-registry/stitch-brand",
+        "askyourpolicy/ss-registry/table",
+        "askyourpolicy/ss-registry/tabs",
+        "askyourpolicy/ss-registry/textarea",
+        "askyourpolicy/ss-registry/tooltip"
+      ]
+    },
+    {
+      "name": "stitch-vite",
+      "type": "registry:item",
+      "title": "Stitch Vite Configuration",
+      "description": "Generic Vite React TypeScript, Tailwind CSS, and Vitest configuration for Stitch applications.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "devDependencies": [
+        "@tailwindcss/vite@^4.3.3",
+        "@testing-library/dom@^10.4.1",
+        "@testing-library/jest-dom@^6.9.1",
+        "@testing-library/react@^16.3.2",
+        "@types/node@^26.1.1",
+        "@vitejs/plugin-react@^6.0.3",
+        "jsdom@^29.1.1",
+        "vite@^8.1.5",
+        "vitest@^4.1.10"
+      ],
+      "files": [
+        {
+          "path": "registry/scaffolds/vite/vite.config.ts",
+          "type": "registry:file",
+          "target": "~/vite.config.ts"
+        },
+        {
+          "path": "registry/scaffolds/vite/tsconfig.json",
+          "type": "registry:file",
+          "target": "~/tsconfig.json"
+        },
+        {
+          "path": "registry/scaffolds/vite/tsconfig.app.json",
+          "type": "registry:file",
+          "target": "~/tsconfig.app.json"
+        },
+        {
+          "path": "registry/scaffolds/vite/tsconfig.node.json",
+          "type": "registry:file",
+          "target": "~/tsconfig.node.json"
+        },
+        {
+          "path": "registry/scaffolds/vite/vite-env.d.ts",
+          "type": "registry:file",
+          "target": "~/src/vite-env.d.ts"
+        },
+        {
+          "path": "registry/scaffolds/vite/test-setup.ts",
+          "type": "registry:file",
+          "target": "~/src/test/setup.ts"
+        }
+      ],
+      "docs": "Add build, dev, preview, test, and test:watch scripts for Vite and Vitest to the consuming application's package.json."
+    },
+    {
+      "name": "stitch-docker",
+      "type": "registry:item",
+      "title": "Stitch Docker Configuration",
+      "description": "Generic Bun multi-stage container and nginx configuration for a Vite single-page application.",
+      "files": [
+        {
+          "path": "registry/scaffolds/docker/Dockerfile",
+          "type": "registry:file",
+          "target": "~/Dockerfile"
+        },
+        {
+          "path": "registry/scaffolds/docker/nginx.conf",
+          "type": "registry:file",
+          "target": "~/nginx.conf"
+        },
+        {
+          "path": "registry/scaffolds/docker/.dockerignore",
+          "type": "registry:file",
+          "target": "~/.dockerignore"
+        }
+      ],
+      "docs": "VITE_* variables are public client configuration compiled into the bundle during the image build. Declare and pass each required value as a Docker build argument; runtime environment changes do not rewrite the built bundle."
+    },
+    {
+      "name": "stitch-vite-starter",
+      "type": "registry:item",
+      "title": "Stitch Vite Starter",
+      "description": "Stitch base, core primitives, Vite configuration, and Docker deployment files for new applications.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/stitch-core",
+        "askyourpolicy/ss-registry/stitch-vite",
+        "askyourpolicy/ss-registry/stitch-docker"
       ]
     }
   ]

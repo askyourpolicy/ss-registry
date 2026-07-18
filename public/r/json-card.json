@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "json-card",
+  "title": "JSON Card",
+  "description": "Card composition for titled, scrollable, and accessible structured JSON.",
+  "registryDependencies": [
+    "askyourpolicy/ss-registry/stitch-base",
+    "askyourpolicy/ss-registry/card",
+    "askyourpolicy/ss-registry/json-viewer"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/json-card.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\n\nimport {\n  Card,\n  CardAction,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/card\";\nimport { JsonViewer, type JsonViewerProps } from \"@/components/ui/json-viewer\";\n\ntype JsonCardProps = Omit<React.ComponentProps<typeof Card>, \"children\" | \"title\"> & {\n  actions?: React.ReactNode;\n  description?: React.ReactNode;\n  title: React.ReactNode;\n  value: unknown;\n  viewerProps?: Omit<JsonViewerProps, \"data\" | \"value\">;\n};\n\nfunction JsonCard({ actions, description, title, value, viewerProps, ...props }: JsonCardProps) {\n  return (\n    <Card data-component=\"json-card\" {...props}>\n      <CardHeader>\n        <CardTitle>{title}</CardTitle>\n        {description != null ? <CardDescription>{description}</CardDescription> : null}\n        {actions != null ? <CardAction>{actions}</CardAction> : null}\n      </CardHeader>\n      <CardContent>\n        <JsonViewer value={value} {...viewerProps} />\n      </CardContent>\n    </Card>\n  );\n}\n\nexport { JsonCard, type JsonCardProps };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

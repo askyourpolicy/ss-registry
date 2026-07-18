@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sonner",
+  "title": "Sonner",
+  "description": "Stitch toast primitive powered by Sonner.",
+  "dependencies": ["sonner@^2.0.7"],
+  "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+  "files": [
+    {
+      "path": "src/components/ui/sonner.tsx",
+      "content": "\"use client\";\n\nimport { Toaster as Sonner, type ToasterProps } from \"sonner\";\nimport {\n  CheckCircleIcon as CircleCheckIcon,\n  InfoIcon,\n  WarningIcon as TriangleAlertIcon,\n  XCircleIcon as OctagonXIcon,\n  SpinnerGapIcon as Loader2Icon,\n} from \"@phosphor-icons/react\";\n\nconst Toaster = ({ theme = \"system\", ...props }: ToasterProps) => {\n  return (\n    <Sonner\n      theme={theme}\n      className=\"toaster group\"\n      icons={{\n        success: <CircleCheckIcon className=\"size-5\" />,\n        info: <InfoIcon className=\"size-5\" />,\n        warning: <TriangleAlertIcon className=\"size-5\" />,\n        error: <OctagonXIcon className=\"size-5\" />,\n        loading: <Loader2Icon className=\"size-5 animate-spin\" />,\n      }}\n      style={\n        {\n          \"--normal-bg\": \"var(--popover)\",\n          \"--normal-text\": \"var(--popover-foreground)\",\n          \"--normal-border\": \"var(--border-subtle)\",\n          \"--border-radius\": \"var(--radius-xl)\",\n          maxWidth: \"calc(100vw - 2rem)\",\n        } as React.CSSProperties\n      }\n      toastOptions={{\n        style: {\n          alignItems: \"center\",\n          background: \"var(--popover)\",\n          borderColor: \"var(--border-subtle)\",\n          borderRadius: \"var(--radius-xl)\",\n          boxShadow: \"var(--shadow-raised)\",\n          color: \"var(--popover-foreground)\",\n          fontSize: \"0.875rem\",\n          gap: \"0.75rem\",\n          maxWidth: \"calc(100vw - 2rem)\",\n          padding: \"0.75rem\",\n          paddingInlineEnd: \"1rem\",\n          width: \"fit-content\",\n        },\n        classNames: {\n          toast: \"cn-toast\",\n          title: \"leading-snug!\",\n          description: \"text-xs! leading-snug! text-muted-foreground!\",\n          icon: \"m-0! size-5! text-muted-foreground! [&_svg]:mx-0!\",\n          success: \"[&_[data-icon]]:text-status-success!\",\n          info: \"[&_[data-icon]]:text-status-info!\",\n          warning: \"[&_[data-icon]]:text-status-warning!\",\n          error: \"[&_[data-icon]]:text-destructive!\",\n          actionButton:\n            \"rounded-md! bg-primary! font-medium! text-primary-foreground! hover:bg-primary/90!\",\n          cancelButton:\n            \"rounded-md! bg-muted! font-medium! text-muted-foreground! hover:bg-muted/80!\",\n        },\n      }}\n      {...props}\n    />\n  );\n};\n\nexport { Toaster };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

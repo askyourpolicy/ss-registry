@@ -1,0 +1,75 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stitch-base",
+  "title": "Stitch Base",
+  "description": "Framework-agnostic Stitch theme, utilities, and shared React, TypeScript, Tailwind CSS, Base UI, Phosphor, and code-quality standards.",
+  "dependencies": [
+    "@base-ui/react@^1.6.0",
+    "@phosphor-icons/react@^2.1.10",
+    "class-variance-authority@^0.7.1",
+    "clsx@^2.1.1",
+    "react@^19.2.4",
+    "react-dom@^19.2.4",
+    "tailwind-merge@^3.6.0",
+    "tw-animate-css@^1.4.0"
+  ],
+  "devDependencies": [
+    "@types/react@^19",
+    "@types/react-dom@^19",
+    "oxfmt@^0.56.0",
+    "oxlint@^1.71.0",
+    "shadcn@^4.12.0",
+    "tailwindcss@^4",
+    "typescript@^5"
+  ],
+  "files": [
+    {
+      "path": "src/styles/globals.css",
+      "content": "@import url(\"https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap\");\n@import \"tailwindcss\";\n@import \"tw-animate-css\";\n@import \"shadcn/tailwind.css\";\n\n@custom-variant dark (&:is(.dark *));\n\n:root {\n  --font-display: \"Hanken Grotesk\", system-ui, sans-serif;\n  --font-body: \"Inter\", system-ui, sans-serif;\n  --font-mono: \"JetBrains Mono\", ui-monospace, \"SF Mono\", Menlo, monospace;\n\n  --ss-canvas: #fbfbf8;\n  --ss-surface: #fcf9f5;\n  --ss-surface-dim: #ddd9d6;\n  --ss-surface-bright: #fcf9f5;\n  --ss-surface-lowest: #ffffff;\n  --ss-surface-low: #f6f3ef;\n  --ss-surface-1: #f1ede9;\n  --ss-surface-2: #ebe8e4;\n  --ss-surface-3: #e5e2de;\n\n  --ss-ink: #1c1c19;\n  --ss-ink-strong: #0e0e0c;\n  --ss-ink-muted: #464556;\n  --ss-inverse-surface: #31302e;\n  --ss-inverse-ink: #f4f0ec;\n\n  --ss-outline: #767588;\n  --ss-outline-variant: #c7c4d9;\n  --ss-hairline: #e7e4e0;\n\n  --ss-primary: #443df6;\n  --ss-primary-strong: #2711e0;\n  --ss-on-primary: #ffffff;\n  --ss-primary-container: #e2dfff;\n  --ss-on-primary-container: #0a006b;\n  --ss-primary-fixed-dim: #c1c1ff;\n  --ss-inverse-primary: #c1c1ff;\n  --ss-primary-tint: #e9e9fe;\n\n  --ss-secondary: #5c5d6e;\n  --ss-on-secondary: #ffffff;\n  --ss-secondary-container: #e1e1f6;\n  --ss-on-secondary-container: #444656;\n\n  --ss-tertiary: #464745;\n  --ss-on-tertiary: #ffffff;\n  --ss-tertiary-container: #f4f4f0;\n  --ss-on-tertiary-container: #1a1c1a;\n\n  --ss-error: #ba1a1a;\n  --ss-on-error: #ffffff;\n  --ss-error-container: #ffdad6;\n  --ss-on-error-container: #93000a;\n\n  --ss-status-success: #1f7046;\n  --ss-status-success-muted: #e1f4e8;\n  --ss-status-success-muted-foreground: #155b37;\n  --ss-status-warning: #8a5700;\n  --ss-status-warning-muted: #fff0ce;\n  --ss-status-warning-muted-foreground: #714500;\n  --ss-status-info: #315da8;\n  --ss-status-info-muted: #e7edfb;\n  --ss-status-info-muted-foreground: #274f92;\n\n  --space-xs: 4px;\n  --space-sm: 12px;\n  --space-base: 8px;\n  --space-md: 24px;\n  --space-lg: 48px;\n  --space-xl: 80px;\n  --space-gutter: 24px;\n  --space-pad-card: 24px;\n\n  --radius: 4px;\n  --radius-pill: 9999px;\n\n  --shadow-ambient: 0 4px 20px rgb(14 14 12 / 6%);\n  --shadow-raised: 0 8px 32px rgb(14 14 12 / 10%);\n  --shadow-overlay: 0 24px 64px rgb(14 14 12 / 18%);\n  --glass-blur: 12px;\n\n  --layout-max: 1280px;\n  --layout-margin-desktop: 64px;\n  --layout-margin-mobile: 16px;\n\n  --ease-standard: cubic-bezier(0.2, 0, 0, 1);\n  --ease-emphasized: cubic-bezier(0.3, 0, 0, 1);\n  --dur-fast: 120ms;\n  --dur-base: 200ms;\n  --dur-slow: 360ms;\n\n  --bg: var(--ss-canvas);\n  --surface-card: var(--ss-tertiary-container);\n  --surface-raised: var(--ss-surface-lowest);\n  --text-strong: var(--ss-ink-strong);\n  --text-body: var(--ss-ink);\n  --text-muted: var(--ss-ink-muted);\n  --border-subtle: var(--ss-hairline);\n  --accent-hover: var(--ss-primary-strong);\n\n  --background: var(--ss-canvas);\n  --foreground: var(--ss-ink);\n  --card: var(--ss-surface-lowest);\n  --card-foreground: var(--ss-ink);\n  --popover: var(--ss-surface-lowest);\n  --popover-foreground: var(--ss-ink);\n  --primary: var(--ss-primary);\n  --primary-foreground: var(--ss-on-primary);\n  --secondary: var(--ss-primary-tint);\n  --secondary-foreground: var(--ss-primary-strong);\n  --muted: var(--ss-surface-low);\n  --muted-foreground: var(--ss-ink-muted);\n  --accent: var(--ss-tertiary-container);\n  --accent-foreground: var(--ss-ink);\n  --destructive: var(--ss-error);\n  --destructive-foreground: var(--ss-on-error);\n  --status-success: var(--ss-status-success);\n  --status-success-muted: var(--ss-status-success-muted);\n  --status-success-muted-foreground: var(--ss-status-success-muted-foreground);\n  --status-warning: var(--ss-status-warning);\n  --status-warning-muted: var(--ss-status-warning-muted);\n  --status-warning-muted-foreground: var(--ss-status-warning-muted-foreground);\n  --status-info: var(--ss-status-info);\n  --status-info-muted: var(--ss-status-info-muted);\n  --status-info-muted-foreground: var(--ss-status-info-muted-foreground);\n  --border: var(--ss-outline-variant);\n  --input: var(--ss-outline-variant);\n  --ring: var(--ss-primary);\n\n  --chart-1: var(--ss-primary);\n  --chart-2: var(--ss-secondary);\n  --chart-3: var(--ss-tertiary);\n  --chart-4: var(--ss-primary-fixed-dim);\n  --chart-5: var(--ss-surface-dim);\n\n  --sidebar: var(--ss-surface-lowest);\n  --sidebar-foreground: var(--ss-ink);\n  --sidebar-primary: var(--ss-primary);\n  --sidebar-primary-foreground: var(--ss-on-primary);\n  --sidebar-accent: var(--ss-surface-low);\n  --sidebar-accent-foreground: var(--ss-ink);\n  --sidebar-border: var(--ss-hairline);\n  --sidebar-ring: var(--ss-primary);\n}\n\n.dark {\n  --background: var(--ss-inverse-surface);\n  --foreground: var(--ss-inverse-ink);\n  --card: #272624;\n  --card-foreground: var(--ss-inverse-ink);\n  --popover: #272624;\n  --popover-foreground: var(--ss-inverse-ink);\n  --primary: var(--ss-inverse-primary);\n  --primary-foreground: var(--ss-on-primary-container);\n  --secondary: #3b3a46;\n  --secondary-foreground: var(--ss-inverse-ink);\n  --muted: #3b3a38;\n  --muted-foreground: #d1ccc8;\n  --accent: #3b3a38;\n  --accent-foreground: var(--ss-inverse-ink);\n  --destructive: var(--ss-error-container);\n  --destructive-foreground: var(--ss-on-error-container);\n  --status-success: #8bdcad;\n  --status-success-muted: #193d2b;\n  --status-success-muted-foreground: #a7e5bf;\n  --status-warning: #f5bf64;\n  --status-warning-muted: #493617;\n  --status-warning-muted-foreground: #ffd48a;\n  --status-info: #9bb9ff;\n  --status-info-muted: #223252;\n  --status-info-muted-foreground: #b8ccff;\n  --border: rgb(244 240 236 / 18%);\n  --border-subtle: rgb(244 240 236 / 10%);\n  --input: rgb(244 240 236 / 20%);\n  --ring: var(--ss-inverse-primary);\n\n  --sidebar: #272624;\n  --sidebar-foreground: var(--ss-inverse-ink);\n  --sidebar-primary: var(--ss-inverse-primary);\n  --sidebar-primary-foreground: var(--ss-on-primary-container);\n  --sidebar-accent: #3b3a38;\n  --sidebar-accent-foreground: var(--ss-inverse-ink);\n  --sidebar-border: rgb(244 240 236 / 14%);\n  --sidebar-ring: var(--ss-inverse-primary);\n}\n\n@theme inline {\n  --color-background: var(--background);\n  --color-foreground: var(--foreground);\n  --color-card: var(--card);\n  --color-card-foreground: var(--card-foreground);\n  --color-popover: var(--popover);\n  --color-popover-foreground: var(--popover-foreground);\n  --color-primary: var(--primary);\n  --color-primary-foreground: var(--primary-foreground);\n  --color-secondary: var(--secondary);\n  --color-secondary-foreground: var(--secondary-foreground);\n  --color-muted: var(--muted);\n  --color-muted-foreground: var(--muted-foreground);\n  --color-accent: var(--accent);\n  --color-accent-foreground: var(--accent-foreground);\n  --color-destructive: var(--destructive);\n  --color-destructive-foreground: var(--destructive-foreground);\n  --color-status-success: var(--status-success);\n  --color-status-success-muted: var(--status-success-muted);\n  --color-status-success-muted-foreground: var(--status-success-muted-foreground);\n  --color-status-warning: var(--status-warning);\n  --color-status-warning-muted: var(--status-warning-muted);\n  --color-status-warning-muted-foreground: var(--status-warning-muted-foreground);\n  --color-status-info: var(--status-info);\n  --color-status-info-muted: var(--status-info-muted);\n  --color-status-info-muted-foreground: var(--status-info-muted-foreground);\n  --color-border: var(--border);\n  --color-border-subtle: var(--border-subtle);\n  --color-input: var(--input);\n  --color-ring: var(--ring);\n  --color-chart-1: var(--chart-1);\n  --color-chart-2: var(--chart-2);\n  --color-chart-3: var(--chart-3);\n  --color-chart-4: var(--chart-4);\n  --color-chart-5: var(--chart-5);\n  --color-sidebar: var(--sidebar);\n  --color-sidebar-foreground: var(--sidebar-foreground);\n  --color-sidebar-primary: var(--sidebar-primary);\n  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);\n  --color-sidebar-accent: var(--sidebar-accent);\n  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);\n  --color-sidebar-border: var(--sidebar-border);\n  --color-sidebar-ring: var(--sidebar-ring);\n\n  --color-canvas: var(--ss-canvas);\n  --color-surface: var(--ss-surface-lowest);\n  --color-surface-low: var(--ss-surface-low);\n  --color-surface-card: var(--ss-tertiary-container);\n  --color-ink: var(--ss-ink);\n  --color-ink-strong: var(--ss-ink-strong);\n  --color-ink-muted: var(--ss-ink-muted);\n  --color-hairline: var(--ss-hairline);\n  --color-outline: var(--ss-outline-variant);\n  --color-primary-strong: var(--ss-primary-strong);\n  --color-primary-tint: var(--ss-primary-tint);\n  --color-error: var(--ss-error);\n\n  --font-display: \"Hanken Grotesk\", system-ui, sans-serif;\n  --font-sans: \"Inter\", system-ui, sans-serif;\n  --font-mono: \"JetBrains Mono\", ui-monospace, \"SF Mono\", Menlo, monospace;\n  --font-heading: \"Hanken Grotesk\", system-ui, sans-serif;\n\n  --radius-xs: calc(var(--radius) * 0.5);\n  --radius-sm: calc(var(--radius) * 0.75);\n  --radius-md: calc(var(--radius) * 1.5);\n  --radius-lg: calc(var(--radius) * 2);\n  --radius-xl: calc(var(--radius) * 3);\n  --radius-2xl: calc(var(--radius) * 4);\n  --radius-3xl: calc(var(--radius) * 5);\n  --radius-4xl: calc(var(--radius) * 6);\n}\n\n@layer base {\n  * {\n    @apply border-border outline-ring/50;\n  }\n\n  html {\n    @apply bg-background font-sans text-foreground;\n  }\n\n  body {\n    @apply bg-background text-foreground;\n  }\n}\n",
+      "type": "registry:file",
+      "target": "src/styles/globals.css"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\";\nimport { twMerge } from \"tailwind-merge\";\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs));\n}\n",
+      "type": "registry:lib",
+      "target": "src/lib/utils.ts"
+    },
+    {
+      "path": ".oxfmtrc.json",
+      "content": "{\n  \"$schema\": \"./node_modules/oxfmt/configuration_schema.json\",\n  \"ignorePatterns\": []\n}\n",
+      "type": "registry:file",
+      "target": "~/.oxfmtrc.json"
+    },
+    {
+      "path": ".oxlintrc.json",
+      "content": "{\n  \"$schema\": \"./node_modules/oxlint/configuration_schema.json\",\n  \"plugins\": [\"typescript\", \"unicorn\", \"oxc\"],\n  \"categories\": {\n    \"correctness\": \"error\"\n  },\n  \"rules\": {},\n  \"env\": {\n    \"builtin\": true\n  }\n}\n",
+      "type": "registry:file",
+      "target": "~/.oxlintrc.json"
+    }
+  ],
+  "docs": "Import the installed theme once from your application entry point with import \"@/styles/globals.css\". If the application already owns a global Tailwind stylesheet, merge intentionally instead of loading both.",
+  "type": "registry:base",
+  "config": {
+    "$schema": "https://ui.shadcn.com/schema.json",
+    "style": "base-nova",
+    "rsc": false,
+    "tsx": true,
+    "tailwind": {
+      "config": "",
+      "css": "src/styles/globals.css",
+      "baseColor": "neutral",
+      "cssVariables": true,
+      "prefix": ""
+    },
+    "iconLibrary": "phosphor",
+    "rtl": false,
+    "aliases": {
+      "components": "@/components",
+      "utils": "@/lib/utils",
+      "ui": "@/components/ui",
+      "lib": "@/lib",
+      "hooks": "@/hooks"
+    }
+  }
+}

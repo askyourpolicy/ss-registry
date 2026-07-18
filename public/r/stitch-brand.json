@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stitch-brand",
+  "title": "Stitch Brand",
+  "description": "Inline current-color Stitch mark and lockup with optional application name and subtitle.",
+  "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+  "files": [
+    {
+      "path": "src/components/ui/stitch-brand.tsx",
+      "content": "import * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\ntype StitchMarkProps = Omit<React.ComponentProps<\"svg\">, \"children\"> & {\n  title?: string;\n};\n\nfunction StitchMark({ className, title, ...props }: StitchMarkProps) {\n  return (\n    <svg\n      aria-hidden={title ? undefined : true}\n      aria-label={title}\n      className={cn(\"size-8 shrink-0\", className)}\n      data-slot=\"stitch-mark\"\n      fill=\"none\"\n      role={title ? \"img\" : undefined}\n      viewBox=\"0 0 27 26\"\n      xmlns=\"http://www.w3.org/2000/svg\"\n      {...props}\n    >\n      {title ? <title>{title}</title> : null}\n      <g fill=\"currentColor\">\n        <path d=\"M26.7548 0H.0765533v7.72974H26.7548z\" />\n        <path d=\"M.0771675 26H26.7555v-7.7297H.0771675z\" />\n        <path d=\"M7.85772 0H.0765533v14.2883H7.85772z\" />\n        <path d=\"M26.7555 26h-7.7812V11.7117h7.7812z\" />\n      </g>\n    </svg>\n  );\n}\n\ntype BrandLockupProps = Omit<React.ComponentProps<\"div\">, \"children\"> & {\n  applicationName?: React.ReactNode;\n  markClassName?: string;\n  subtitle?: React.ReactNode;\n};\n\nfunction BrandLockup({\n  applicationName,\n  className,\n  markClassName,\n  subtitle,\n  ...props\n}: BrandLockupProps) {\n  return (\n    <div\n      className={cn(\"inline-flex min-w-0 items-center gap-2.5\", className)}\n      data-slot=\"brand-lockup\"\n      {...props}\n    >\n      <StitchMark className={cn(\"-translate-y-px self-center text-primary\", markClassName)} />\n      <div className=\"min-w-0\">\n        <div className=\"flex min-w-0 flex-wrap items-baseline gap-x-2 leading-5\">\n          <span className=\"font-heading text-base font-semibold tracking-tight\">Stitch</span>\n          {applicationName != null ? (\n            <>\n              <span aria-hidden=\"true\" className=\"text-border\">\n                /\n              </span>\n              <span className=\"min-w-0 text-sm font-medium text-muted-foreground\">\n                {applicationName}\n              </span>\n            </>\n          ) : null}\n        </div>\n        {subtitle != null ? (\n          <div className=\"mt-1 text-xs leading-snug text-muted-foreground\">{subtitle}</div>\n        ) : null}\n      </div>\n    </div>\n  );\n}\n\nexport { BrandLockup, StitchMark, type BrandLockupProps, type StitchMarkProps };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

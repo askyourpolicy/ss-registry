@@ -1,0 +1,11 @@
+.git
+.gitignore
+.DS_Store
+.env*
+.vercel
+coverage
+dist
+node_modules
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*

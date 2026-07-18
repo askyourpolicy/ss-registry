@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "account-menu",
+  "title": "Account Menu",
+  "description": "Generic avatar and identity dropdown shell with consumer-provided menu actions.",
+  "registryDependencies": [
+    "askyourpolicy/ss-registry/stitch-base",
+    "askyourpolicy/ss-registry/avatar",
+    "askyourpolicy/ss-registry/button",
+    "askyourpolicy/ss-registry/dropdown-menu"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/account-menu.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { CaretDownIcon } from \"@phosphor-icons/react\";\n\nimport { Avatar, AvatarFallback, AvatarImage } from \"@/components/ui/avatar\";\nimport { Button } from \"@/components/ui/button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuGroup,\n  DropdownMenuLabel,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\";\nimport { cn } from \"@/lib/utils\";\n\ntype AccountMenuAvatarProps = Omit<React.ComponentProps<typeof Avatar>, \"children\"> & {\n  alt?: string;\n  fallback: React.ReactNode;\n  src?: string;\n};\n\nfunction AccountMenuAvatar({\n  alt = \"\",\n  className,\n  fallback,\n  src,\n  ...props\n}: AccountMenuAvatarProps) {\n  return (\n    <Avatar className={className} {...props}>\n      {src ? <AvatarImage alt={alt} src={src} /> : null}\n      <AvatarFallback>{fallback}</AvatarFallback>\n    </Avatar>\n  );\n}\n\ntype AccountMenuProps = Omit<React.ComponentProps<typeof DropdownMenu>, \"children\"> & {\n  avatar: React.ReactNode;\n  children: React.ReactNode;\n  contentProps?: Omit<React.ComponentProps<typeof DropdownMenuContent>, \"children\">;\n  description?: React.ReactNode;\n  name: React.ReactNode;\n  triggerClassName?: string;\n  triggerLabel?: string;\n};\n\nfunction AccountMenu({\n  avatar,\n  children,\n  contentProps,\n  description,\n  name,\n  triggerClassName,\n  triggerLabel = \"Open account menu\",\n  ...props\n}: AccountMenuProps) {\n  const { className: contentClassName, ...resolvedContentProps } = contentProps ?? {};\n\n  return (\n    <DropdownMenu {...props}>\n      <DropdownMenuTrigger\n        aria-label={triggerLabel}\n        render={\n          <Button\n            className={cn(\"h-auto min-w-0 justify-start gap-2 px-2 py-1.5\", triggerClassName)}\n            variant=\"ghost\"\n          />\n        }\n      >\n        {avatar}\n        <span className=\"min-w-0 flex-1 text-left\">\n          <span className=\"block truncate text-sm leading-snug font-medium\">{name}</span>\n          {description != null ? (\n            <span className=\"block truncate text-xs leading-snug text-muted-foreground\">\n              {description}\n            </span>\n          ) : null}\n        </span>\n        <CaretDownIcon aria-hidden=\"true\" className=\"size-3.5 text-muted-foreground\" />\n      </DropdownMenuTrigger>\n\n      <DropdownMenuContent\n        align=\"end\"\n        className={cn(\"min-w-56\", contentClassName)}\n        {...resolvedContentProps}\n      >\n        <DropdownMenuGroup>\n          <DropdownMenuLabel className=\"p-2 font-normal\" data-slot=\"account-menu-identity\">\n            <span className=\"block truncate text-sm leading-snug font-medium text-foreground\">\n              {name}\n            </span>\n            {description != null ? (\n              <span className=\"block truncate text-xs leading-snug text-muted-foreground\">\n                {description}\n              </span>\n            ) : null}\n          </DropdownMenuLabel>\n        </DropdownMenuGroup>\n        <DropdownMenuSeparator />\n        {children}\n      </DropdownMenuContent>\n    </DropdownMenu>\n  );\n}\n\nexport { AccountMenu, AccountMenuAvatar, type AccountMenuAvatarProps, type AccountMenuProps };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

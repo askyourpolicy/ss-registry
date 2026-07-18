@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "search-params",
+  "title": "Search Params",
+  "description": "Pure immutable URLSearchParams patching and href helpers with defaults and reset keys.",
+  "files": [
+    {
+      "path": "src/lib/search-params.ts",
+      "content": "type SearchParamValue = string | number | boolean | null | undefined;\ntype SearchParamPatch = Readonly<Record<string, SearchParamValue>>;\n\ntype PatchSearchParamsOptions = {\n  defaults?: SearchParamPatch;\n  resetKeys?: readonly string[];\n};\n\nfunction serializeSearchParamValue(value: Exclude<SearchParamValue, null | undefined>) {\n  return String(value);\n}\n\nfunction patchSearchParams(\n  searchParams: URLSearchParams,\n  patch: SearchParamPatch,\n  options: PatchSearchParamsOptions = {},\n) {\n  const nextSearchParams = new URLSearchParams(searchParams);\n  const { defaults = {}, resetKeys = [] } = options;\n\n  for (const key of resetKeys) {\n    nextSearchParams.delete(key);\n  }\n\n  for (const [key, value] of Object.entries(patch)) {\n    if (value == null) {\n      nextSearchParams.delete(key);\n      continue;\n    }\n\n    const serializedValue = serializeSearchParamValue(value);\n    const defaultValue = defaults[key];\n\n    if (defaultValue != null && serializedValue === serializeSearchParamValue(defaultValue)) {\n      nextSearchParams.delete(key);\n      continue;\n    }\n\n    nextSearchParams.set(key, serializedValue);\n  }\n\n  for (const [key, defaultValue] of Object.entries(defaults)) {\n    if (defaultValue == null) {\n      continue;\n    }\n\n    const values = nextSearchParams.getAll(key);\n    if (values.length === 1 && values[0] === serializeSearchParamValue(defaultValue)) {\n      nextSearchParams.delete(key);\n    }\n  }\n\n  return nextSearchParams;\n}\n\nfunction buildSearchParamsHref(\n  pathname: string,\n  searchParams: URLSearchParams,\n  patch: SearchParamPatch = {},\n  options: PatchSearchParamsOptions = {},\n) {\n  const hashIndex = pathname.indexOf(\"#\");\n  const basePath = hashIndex === -1 ? pathname : pathname.slice(0, hashIndex);\n  const hash = hashIndex === -1 ? \"\" : pathname.slice(hashIndex);\n  const query = patchSearchParams(searchParams, patch, options).toString();\n\n  return `${basePath}${query ? `?${query}` : \"\"}${hash}`;\n}\n\nexport {\n  buildSearchParamsHref,\n  patchSearchParams,\n  serializeSearchParamValue,\n  type PatchSearchParamsOptions,\n  type SearchParamPatch,\n  type SearchParamValue,\n};\n",
+      "type": "registry:lib",
+      "target": "src/lib/search-params.ts"
+    }
+  ],
+  "type": "registry:lib"
+}

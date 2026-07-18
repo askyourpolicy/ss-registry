@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "navigable-table-row",
+  "title": "Navigable Table Row",
+  "description": "Framework-neutral row-wide detail navigation with a native title link and independent nested controls.",
+  "registryDependencies": [
+    "askyourpolicy/ss-registry/stitch-base",
+    "askyourpolicy/ss-registry/table"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/navigable-table-row.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\n\nimport { TableRow } from \"@/components/ui/table\";\nimport { cn } from \"@/lib/utils\";\n\ntype RowNavigationContextValue = {\n  href: string;\n  onNavigate?: (href: string) => void;\n};\n\nconst RowNavigationContext = React.createContext<RowNavigationContextValue | null>(null);\n\ntype NavigableTableRowProps = Omit<React.ComponentProps<typeof TableRow>, \"onClick\"> & {\n  href: string;\n  onClick?: React.MouseEventHandler<HTMLTableRowElement>;\n  onNavigate?: (href: string) => void;\n};\n\nfunction NavigableTableRow({\n  className,\n  href,\n  onClick,\n  onNavigate,\n  ...props\n}: NavigableTableRowProps) {\n  return (\n    <RowNavigationContext value={{ href, onNavigate }}>\n      <TableRow\n        className={cn(\"cursor-pointer\", className)}\n        data-slot=\"navigable-table-row\"\n        onClick={(event) => {\n          onClick?.(event);\n          if (event.defaultPrevented || event.button !== 0 || isInteractiveTarget(event.target)) {\n            return;\n          }\n\n          if (event.metaKey || event.ctrlKey || event.shiftKey) {\n            globalThis.open(href, \"_blank\", \"noopener,noreferrer\");\n            return;\n          }\n\n          if (onNavigate) {\n            onNavigate(href);\n          } else {\n            globalThis.location.assign(href);\n          }\n        }}\n        {...props}\n      />\n    </RowNavigationContext>\n  );\n}\n\ntype NavigableTableRowLinkProps = Omit<React.ComponentProps<\"a\">, \"href\">;\n\nfunction NavigableTableRowLink({ className, onClick, ...props }: NavigableTableRowLinkProps) {\n  const navigation = React.useContext(RowNavigationContext);\n  if (!navigation) {\n    throw new Error(\"NavigableTableRowLink must be used inside NavigableTableRow.\");\n  }\n\n  const { href, onNavigate } = navigation;\n  return (\n    <a\n      className={cn(\n        \"font-medium focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50\",\n        className,\n      )}\n      data-slot=\"navigable-table-row-link\"\n      href={href}\n      onClick={(event) => {\n        onClick?.(event);\n        if (\n          event.defaultPrevented ||\n          !onNavigate ||\n          event.button !== 0 ||\n          event.metaKey ||\n          event.ctrlKey ||\n          event.shiftKey ||\n          event.altKey ||\n          event.currentTarget.hasAttribute(\"download\") ||\n          (event.currentTarget.target !== \"\" && event.currentTarget.target !== \"_self\")\n        ) {\n          return;\n        }\n\n        event.preventDefault();\n        onNavigate(href);\n      }}\n      {...props}\n    />\n  );\n}\n\nfunction isInteractiveTarget(target: EventTarget) {\n  return (\n    target instanceof Element &&\n    target.closest(\n      \"a, button, input, label, select, summary, textarea, [role='button'], [role='link'], [contenteditable='true'], [data-row-action]\",\n    ) !== null\n  );\n}\n\nexport {\n  NavigableTableRow,\n  NavigableTableRowLink,\n  type NavigableTableRowLinkProps,\n  type NavigableTableRowProps,\n};\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

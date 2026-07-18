@@ -1,0 +1,97 @@
+import * as React from "react";
+
+import { Card } from "@/components/ui/card";
+import { Empty } from "@/components/ui/empty";
+import { Table, TableCell, TableRow } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
+
+function DataTableCard({ className, ...props }: React.ComponentProps<typeof Card>) {
+  return (
+    <Card data-component="data-table-card" className={cn("gap-0 py-0", className)} {...props} />
+  );
+}
+
+function DataTableCardToolbar({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="data-table-card-toolbar"
+      className={cn(
+        "flex min-h-12 flex-col gap-3 border-b border-border-subtle p-4 sm:flex-row sm:items-center sm:justify-between",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+function DataTableCardContent({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div data-slot="data-table-card-content" className={cn("min-w-0", className)} {...props} />
+  );
+}
+
+function DataTableCardTable({ className, ...props }: React.ComponentProps<typeof Table>) {
+  return (
+    <Table
+      data-component="data-table-card-table"
+      className={cn("min-w-full", className)}
+      {...props}
+    />
+  );
+}
+
+function DataTableCardFooter({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="data-table-card-footer"
+      className={cn(
+        "flex min-h-12 flex-col gap-3 border-t border-border-subtle bg-muted/30 p-4 sm:flex-row sm:items-center sm:justify-between",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+type DataTableCardEmptyRowProps = Omit<React.ComponentProps<typeof TableRow>, "children"> & {
+  cellClassName?: string;
+  children: React.ReactNode;
+  colSpan: number;
+};
+
+function DataTableCardEmptyRow({
+  cellClassName,
+  children,
+  className,
+  colSpan,
+  ...props
+}: DataTableCardEmptyRowProps) {
+  return (
+    <TableRow className={cn("hover:bg-transparent", className)} {...props}>
+      <TableCell className={cn("h-40 p-0 whitespace-normal", cellClassName)} colSpan={colSpan}>
+        {children}
+      </TableCell>
+    </TableRow>
+  );
+}
+
+function DataTableCardEmptyState({ className, ...props }: React.ComponentProps<typeof Empty>) {
+  return (
+    <Empty
+      data-component="data-table-card-empty-state"
+      className={cn("min-h-40 rounded-none border-0 px-4 py-10", className)}
+      {...props}
+    />
+  );
+}
+
+export {
+  DataTableCard,
+  DataTableCardContent,
+  DataTableCardEmptyRow,
+  DataTableCardEmptyState,
+  DataTableCardFooter,
+  DataTableCardTable,
+  DataTableCardToolbar,
+  type DataTableCardEmptyRowProps,
+};

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stitch-vite-starter",
+  "title": "Stitch Vite Starter",
+  "description": "Stitch base, core primitives, Vite configuration, and Docker deployment files for new applications.",
+  "registryDependencies": [
+    "askyourpolicy/ss-registry/stitch-base",
+    "askyourpolicy/ss-registry/stitch-core",
+    "askyourpolicy/ss-registry/stitch-vite",
+    "askyourpolicy/ss-registry/stitch-docker"
+  ],
+  "type": "registry:item"
+}

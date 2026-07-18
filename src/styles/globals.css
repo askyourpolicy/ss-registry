@@ -54,6 +54,16 @@
   --ss-error-container: #ffdad6;
   --ss-on-error-container: #93000a;
 
+  --ss-status-success: #1f7046;
+  --ss-status-success-muted: #e1f4e8;
+  --ss-status-success-muted-foreground: #155b37;
+  --ss-status-warning: #8a5700;
+  --ss-status-warning-muted: #fff0ce;
+  --ss-status-warning-muted-foreground: #714500;
+  --ss-status-info: #315da8;
+  --ss-status-info-muted: #e7edfb;
+  --ss-status-info-muted-foreground: #274f92;
+
   --space-xs: 4px;
   --space-sm: 12px;
   --space-base: 8px;
@@ -106,6 +116,15 @@
   --accent-foreground: var(--ss-ink);
   --destructive: var(--ss-error);
   --destructive-foreground: var(--ss-on-error);
+  --status-success: var(--ss-status-success);
+  --status-success-muted: var(--ss-status-success-muted);
+  --status-success-muted-foreground: var(--ss-status-success-muted-foreground);
+  --status-warning: var(--ss-status-warning);
+  --status-warning-muted: var(--ss-status-warning-muted);
+  --status-warning-muted-foreground: var(--ss-status-warning-muted-foreground);
+  --status-info: var(--ss-status-info);
+  --status-info-muted: var(--ss-status-info-muted);
+  --status-info-muted-foreground: var(--ss-status-info-muted-foreground);
   --border: var(--ss-outline-variant);
   --input: var(--ss-outline-variant);
   --ring: var(--ss-primary);
@@ -143,7 +162,17 @@
   --accent-foreground: var(--ss-inverse-ink);
   --destructive: var(--ss-error-container);
   --destructive-foreground: var(--ss-on-error-container);
+  --status-success: #8bdcad;
+  --status-success-muted: #193d2b;
+  --status-success-muted-foreground: #a7e5bf;
+  --status-warning: #f5bf64;
+  --status-warning-muted: #493617;
+  --status-warning-muted-foreground: #ffd48a;
+  --status-info: #9bb9ff;
+  --status-info-muted: #223252;
+  --status-info-muted-foreground: #b8ccff;
   --border: rgb(244 240 236 / 18%);
+  --border-subtle: rgb(244 240 236 / 10%);
   --input: rgb(244 240 236 / 20%);
   --ring: var(--ss-inverse-primary);
 
@@ -174,7 +203,17 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-status-success: var(--status-success);
+  --color-status-success-muted: var(--status-success-muted);
+  --color-status-success-muted-foreground: var(--status-success-muted-foreground);
+  --color-status-warning: var(--status-warning);
+  --color-status-warning-muted: var(--status-warning-muted);
+  --color-status-warning-muted-foreground: var(--status-warning-muted-foreground);
+  --color-status-info: var(--status-info);
+  --color-status-info-muted: var(--status-info-muted);
+  --color-status-info-muted-foreground: var(--status-info-muted-foreground);
   --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-chart-1: var(--chart-1);

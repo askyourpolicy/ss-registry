@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox-card",
+  "title": "Checkbox Card",
+  "description": "Accessible controlled checkbox card with optional icon and pending state.",
+  "registryDependencies": [
+    "askyourpolicy/ss-registry/stitch-base",
+    "askyourpolicy/ss-registry/checkbox",
+    "askyourpolicy/ss-registry/label",
+    "askyourpolicy/ss-registry/spinner"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/checkbox-card.tsx",
+      "content": "\"use client\";\n\nimport { useId, type ReactNode } from \"react\";\n\nimport { Checkbox } from \"@/components/ui/checkbox\";\nimport { Label } from \"@/components/ui/label\";\nimport { Spinner } from \"@/components/ui/spinner\";\nimport { cn } from \"@/lib/utils\";\n\ntype CheckboxCardProps = {\n  checked: boolean;\n  className?: string;\n  description?: ReactNode;\n  disabled?: boolean;\n  icon?: ReactNode;\n  id?: string;\n  label: ReactNode;\n  onCheckedChange?: (checked: boolean) => void;\n  pending?: boolean;\n};\n\nfunction CheckboxCard({\n  checked,\n  className,\n  description,\n  disabled = false,\n  icon,\n  id,\n  label,\n  onCheckedChange,\n  pending = false,\n}: CheckboxCardProps) {\n  const generatedId = useId();\n  const checkboxId = id ?? generatedId;\n  const interactionDisabled = disabled || pending;\n\n  return (\n    <Label\n      aria-busy={pending}\n      aria-disabled={interactionDisabled}\n      className={cn(\n        \"flex min-h-12 cursor-pointer items-start gap-3 rounded-lg border border-border-subtle p-3 transition-colors data-[state=checked]:border-primary/40 data-[state=checked]:bg-primary/5\",\n        !interactionDisabled && \"hover:bg-muted/50\",\n        disabled && !pending && \"cursor-not-allowed opacity-50\",\n        pending && \"cursor-wait bg-muted/30\",\n        className,\n      )}\n      data-state={checked ? \"checked\" : \"unchecked\"}\n      htmlFor={checkboxId}\n    >\n      <Checkbox\n        checked={checked}\n        disabled={interactionDisabled}\n        id={checkboxId}\n        onCheckedChange={(value) => {\n          if (!pending) onCheckedChange?.(value === true);\n        }}\n      />\n      {icon != null ? (\n        <span\n          aria-hidden=\"true\"\n          className=\"flex size-5 shrink-0 items-center justify-center text-muted-foreground [&_svg]:size-5\"\n        >\n          {icon}\n        </span>\n      ) : null}\n      <span className=\"min-w-0 flex-1\">\n        <span className=\"block text-sm leading-snug font-medium text-balance\">{label}</span>\n        {description != null ? (\n          <span className=\"mt-0.5 block text-xs leading-snug text-muted-foreground\">\n            {description}\n          </span>\n        ) : null}\n      </span>\n      {pending ? <Spinner aria-hidden=\"true\" className=\"shrink-0 text-muted-foreground\" /> : null}\n    </Label>\n  );\n}\n\nexport { CheckboxCard, type CheckboxCardProps };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

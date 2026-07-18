@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stitch-docker",
+  "title": "Stitch Docker Configuration",
+  "description": "Generic Bun multi-stage container and nginx configuration for a Vite single-page application.",
+  "files": [
+    {
+      "path": "registry/scaffolds/docker/Dockerfile",
+      "content": "# syntax=docker/dockerfile:1\n\nFROM oven/bun:1 AS dependencies\nWORKDIR /app\n\nCOPY package.json bun.lock ./\nRUN bun install --frozen-lockfile\n\nFROM dependencies AS build\nWORKDIR /app\n\nCOPY . .\n\n# VITE_* values are public client configuration compiled into the bundle at build time.\n# Declare an ARG/ENV pair for each value the application needs, then pass --build-arg.\nARG VITE_API_URL=\"\"\nENV VITE_API_URL=${VITE_API_URL}\n\nRUN bun run build\n\nFROM nginx:1.29-alpine AS runtime\n\nCOPY --from=build /app/dist /usr/share/nginx/html\nCOPY nginx.conf /etc/nginx/conf.d/default.conf\n\nEXPOSE 8080\n\nHEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \\\n  CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:8080/healthz || exit 1\n\nCMD [\"nginx\", \"-g\", \"daemon off;\"]\n",
+      "type": "registry:file",
+      "target": "~/Dockerfile"
+    },
+    {
+      "path": "registry/scaffolds/docker/nginx.conf",
+      "content": "server {\n  listen 8080;\n  listen [::]:8080;\n  server_name _;\n\n  root /usr/share/nginx/html;\n  index index.html;\n\n  location = /healthz {\n    access_log off;\n    default_type text/plain;\n    return 200 \"ok\\n\";\n  }\n\n  location /assets/ {\n    try_files $uri =404;\n    expires 1y;\n    add_header Cache-Control \"public, max-age=31536000, immutable\";\n  }\n\n  location = /index.html {\n    try_files $uri =404;\n    add_header Cache-Control \"no-cache, no-store, must-revalidate\";\n  }\n\n  location / {\n    try_files $uri $uri/ /index.html;\n    add_header Cache-Control \"no-cache\";\n  }\n}\n",
+      "type": "registry:file",
+      "target": "~/nginx.conf"
+    },
+    {
+      "path": "registry/scaffolds/docker/.dockerignore",
+      "content": ".git\n.gitignore\n.DS_Store\n.env*\n.vercel\ncoverage\ndist\nnode_modules\nnpm-debug.log*\npnpm-debug.log*\nyarn-error.log*\n",
+      "type": "registry:file",
+      "target": "~/.dockerignore"
+    }
+  ],
+  "docs": "VITE_* variables are public client configuration compiled into the bundle during the image build. Declare and pass each required value as a Docker build argument; runtime environment changes do not rewrite the built bundle.",
+  "type": "registry:item"
+}

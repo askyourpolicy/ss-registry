@@ -1,0 +1,58 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stitch-vite",
+  "title": "Stitch Vite Configuration",
+  "description": "Generic Vite React TypeScript, Tailwind CSS, and Vitest configuration for Stitch applications.",
+  "devDependencies": [
+    "@tailwindcss/vite@^4.3.3",
+    "@testing-library/dom@^10.4.1",
+    "@testing-library/jest-dom@^6.9.1",
+    "@testing-library/react@^16.3.2",
+    "@types/node@^26.1.1",
+    "@vitejs/plugin-react@^6.0.3",
+    "jsdom@^29.1.1",
+    "vite@^8.1.5",
+    "vitest@^4.1.10"
+  ],
+  "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+  "files": [
+    {
+      "path": "registry/scaffolds/vite/vite.config.ts",
+      "content": "import tailwindcss from \"@tailwindcss/vite\";\nimport react from \"@vitejs/plugin-react\";\nimport { fileURLToPath, URL } from \"node:url\";\nimport { defineConfig } from \"vitest/config\";\n\nexport default defineConfig({\n  plugins: [react(), tailwindcss()],\n  resolve: {\n    alias: {\n      \"@\": fileURLToPath(new URL(\"./src\", import.meta.url)),\n    },\n  },\n  test: {\n    css: true,\n    environment: \"jsdom\",\n    globals: true,\n    restoreMocks: true,\n    setupFiles: [\"./src/test/setup.ts\"],\n  },\n});\n",
+      "type": "registry:file",
+      "target": "~/vite.config.ts"
+    },
+    {
+      "path": "registry/scaffolds/vite/tsconfig.json",
+      "content": "{\n  \"files\": [],\n  \"compilerOptions\": {\n    \"paths\": {\n      \"@/*\": [\"./src/*\"]\n    }\n  },\n  \"references\": [\n    {\n      \"path\": \"./tsconfig.app.json\"\n    },\n    {\n      \"path\": \"./tsconfig.node.json\"\n    }\n  ]\n}\n",
+      "type": "registry:file",
+      "target": "~/tsconfig.json"
+    },
+    {
+      "path": "registry/scaffolds/vite/tsconfig.app.json",
+      "content": "{\n  \"compilerOptions\": {\n    \"tsBuildInfoFile\": \"./node_modules/.tmp/tsconfig.app.tsbuildinfo\",\n    \"target\": \"ES2022\",\n    \"useDefineForClassFields\": true,\n    \"lib\": [\"ES2022\", \"DOM\", \"DOM.Iterable\"],\n    \"module\": \"ESNext\",\n    \"types\": [\"vite/client\", \"vitest/globals\", \"@testing-library/jest-dom\"],\n    \"skipLibCheck\": true,\n    \"moduleResolution\": \"bundler\",\n    \"allowImportingTsExtensions\": true,\n    \"verbatimModuleSyntax\": true,\n    \"moduleDetection\": \"force\",\n    \"noEmit\": true,\n    \"jsx\": \"react-jsx\",\n    \"strict\": true,\n    \"noUnusedLocals\": true,\n    \"noUnusedParameters\": true,\n    \"erasableSyntaxOnly\": true,\n    \"noFallthroughCasesInSwitch\": true,\n    \"noUncheckedSideEffectImports\": true,\n    \"baseUrl\": \".\",\n    \"paths\": {\n      \"@/*\": [\"./src/*\"]\n    }\n  },\n  \"include\": [\"src\"]\n}\n",
+      "type": "registry:file",
+      "target": "~/tsconfig.app.json"
+    },
+    {
+      "path": "registry/scaffolds/vite/tsconfig.node.json",
+      "content": "{\n  \"compilerOptions\": {\n    \"tsBuildInfoFile\": \"./node_modules/.tmp/tsconfig.node.tsbuildinfo\",\n    \"target\": \"ES2023\",\n    \"lib\": [\"ES2023\"],\n    \"module\": \"ESNext\",\n    \"types\": [\"node\"],\n    \"skipLibCheck\": true,\n    \"moduleResolution\": \"bundler\",\n    \"allowImportingTsExtensions\": true,\n    \"verbatimModuleSyntax\": true,\n    \"moduleDetection\": \"force\",\n    \"noEmit\": true,\n    \"strict\": true,\n    \"noUnusedLocals\": true,\n    \"noUnusedParameters\": true,\n    \"erasableSyntaxOnly\": true,\n    \"noFallthroughCasesInSwitch\": true,\n    \"noUncheckedSideEffectImports\": true\n  },\n  \"include\": [\"vite.config.ts\"]\n}\n",
+      "type": "registry:file",
+      "target": "~/tsconfig.node.json"
+    },
+    {
+      "path": "registry/scaffolds/vite/vite-env.d.ts",
+      "content": "/// <reference types=\"vite/client\" />\n",
+      "type": "registry:file",
+      "target": "~/src/vite-env.d.ts"
+    },
+    {
+      "path": "registry/scaffolds/vite/test-setup.ts",
+      "content": "import \"@testing-library/jest-dom/vitest\";\n",
+      "type": "registry:file",
+      "target": "~/src/test/setup.ts"
+    }
+  ],
+  "docs": "Add build, dev, preview, test, and test:watch scripts for Vite and Vitest to the consuming application's package.json.",
+  "type": "registry:item"
+}

@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
-type JsonViewerProps = {
+export type JsonViewerProps = {
   className?: string;
   data?: unknown;
   defaultExpanded?: boolean;
@@ -36,6 +36,7 @@ export function JsonViewer({
   return (
     <TooltipProvider>
       <div
+        data-slot="json-viewer"
         className={cn(
           maxHeight,
           "space-y-1.5 overflow-auto rounded-lg border bg-background p-2",
@@ -68,72 +69,138 @@ type JsonNodeProps = {
 
 function JsonNode({ data, defaultExpanded, isRoot = false, level, name }: JsonNodeProps) {
   const [expanded, setExpanded] = React.useState(defaultExpanded);
-  const [copied, setCopied] = React.useState(false);
+  const [copyState, setCopyState] = React.useState<"idle" | "copied" | "error">("idle");
+  const copyStateTimer = React.useRef<number | null>(null);
+  const contentId = React.useId();
   const dataType = getJsonType(data);
   const expandable = dataType === "object" || dataType === "array";
   const entries = expandable ? getEntries(data) : [];
 
+  React.useEffect(
+    () => () => {
+      if (copyStateTimer.current !== null) {
+        window.clearTimeout(copyStateTimer.current);
+      }
+    },
+    [],
+  );
+
   async function copyToClipboard(event: React.MouseEvent) {
     event.stopPropagation();
-    await navigator.clipboard.writeText(JSON.stringify(data, null, 2));
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1600);
+
+    if (copyStateTimer.current !== null) {
+      window.clearTimeout(copyStateTimer.current);
+    }
+
+    try {
+      const serialized = JSON.stringify(data, null, 2) ?? String(data);
+      if (!navigator.clipboard?.writeText) {
+        throw new Error("Clipboard access is unavailable.");
+      }
+      await navigator.clipboard.writeText(serialized);
+      setCopyState("copied");
+    } catch {
+      setCopyState("error");
+    }
+
+    copyStateTimer.current = window.setTimeout(() => {
+      setCopyState("idle");
+      copyStateTimer.current = null;
+    }, 1600);
   }
 
+  const rowContent = (
+    <>
+      <span className="flex size-4 shrink-0 items-center justify-center text-muted-foreground">
+        {expandable ? (
+          expanded ? (
+            <CaretDownIcon className="size-3.5" weight="bold" />
+          ) : (
+            <CaretRightIcon className="size-3.5" weight="bold" />
+          )
+        ) : null}
+      </span>
+      <span className="text-primary">{name}</span>
+      <span className="text-muted-foreground">
+        {expandable ? (
+          <>
+            {dataType === "array" ? "[" : "{"}
+            {!expanded ? (
+              <>
+                {" "}
+                {entries.length} {entries.length === 1 ? "item" : "items"}{" "}
+                {dataType === "array" ? "]" : "}"}
+              </>
+            ) : null}
+          </>
+        ) : (
+          ":"
+        )}
+      </span>
+      {!expandable ? <JsonValue data={data} /> : null}
+    </>
+  );
+
   return (
-    <div className={cn("min-w-0 pl-3", level > 0 && "border-l")}>
+    <div className={cn("min-w-0 pl-3", level > 0 && "border-l border-border-subtle")}>
       <div
         className={cn(
-          "-ml-3 flex min-w-0 cursor-default items-center gap-1 rounded-md px-1 py-px leading-4 transition-colors group/property",
-          expandable && "cursor-pointer hover:bg-muted/60",
+          "-ml-3 flex min-w-0 cursor-default items-center rounded-md transition-colors group/property",
+          expandable && "hover:bg-muted/60",
           isRoot && "font-medium",
         )}
-        onClick={expandable ? () => setExpanded((current) => !current) : undefined}
       >
-        <span className="flex size-4 shrink-0 items-center justify-center text-muted-foreground">
-          {expandable ? (
-            expanded ? (
-              <CaretDownIcon className="size-3.5" weight="bold" />
-            ) : (
-              <CaretRightIcon className="size-3.5" weight="bold" />
-            )
-          ) : null}
-        </span>
-        <span className="text-primary">{name}</span>
-        <span className="text-muted-foreground">
-          {expandable ? (
-            <>
-              {dataType === "array" ? "[" : "{"}
-              {!expanded ? (
-                <>
-                  {" "}
-                  {entries.length} {entries.length === 1 ? "item" : "items"}{" "}
-                  {dataType === "array" ? "]" : "}"}
-                </>
-              ) : null}
-            </>
-          ) : (
-            ":"
-          )}
-        </span>
-        {!expandable ? <JsonValue data={data} /> : null}
+        {expandable ? (
+          <button
+            aria-controls={contentId}
+            aria-expanded={expanded}
+            aria-label={`${expanded ? "Collapse" : "Expand"} ${name}`}
+            className="flex min-w-0 flex-1 cursor-pointer items-center gap-1 rounded-md px-1 py-px text-left leading-4 outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+            onClick={() => setExpanded((current) => !current)}
+            type="button"
+          >
+            {rowContent}
+          </button>
+        ) : (
+          <div className="flex min-w-0 flex-1 items-center gap-1 px-1 py-px leading-4">
+            {rowContent}
+          </div>
+        )}
         <Button
-          aria-label={`Copy ${name}`}
-          className="ml-auto size-5 opacity-0 transition-opacity group-hover/property:opacity-100"
+          aria-label={
+            copyState === "copied"
+              ? `${name} copied`
+              : copyState === "error"
+                ? `Copy ${name} failed. Try again`
+                : `Copy ${name}`
+          }
+          className="ml-auto size-5 shrink-0 opacity-60 transition-opacity hover:opacity-100 focus-visible:opacity-100"
           onClick={(event) => void copyToClipboard(event)}
           size="icon-xs"
           type="button"
           variant="ghost"
         >
-          {copied ? (
-            <CheckIcon className="size-3.5 text-emerald-600" weight="bold" />
+          {copyState === "copied" ? (
+            <CheckIcon className="size-3.5 text-status-success" weight="bold" />
           ) : (
-            <CopyIcon className="size-3.5 text-muted-foreground" />
+            <CopyIcon
+              className={cn(
+                "size-3.5 text-muted-foreground",
+                copyState === "error" && "text-destructive",
+              )}
+            />
           )}
         </Button>
+        <span aria-live="polite" className="sr-only" role="status">
+          {copyState === "copied"
+            ? `${name} copied to clipboard.`
+            : copyState === "error"
+              ? `${name} could not be copied. Try again.`
+              : ""}
+        </span>
       </div>
       {expandable && expanded ? (
-        <div className="pl-4">
+        <div id={contentId} className="pl-4">
           {entries.map(([key, entry]) => (
             <JsonNode data={entry} defaultExpanded={false} key={key} level={level + 1} name={key} />
           ))}
@@ -164,6 +231,7 @@ function JsonValue({ data }: { data: unknown }) {
       const displayValue = expanded ? data : `${data.slice(0, textLimit)}...`;
       return (
         <button
+          aria-expanded={expanded}
           className="group/value inline-flex items-center gap-1 text-left whitespace-nowrap text-emerald-700 dark:text-emerald-300"
           onClick={(event) => {
             event.stopPropagation();
@@ -184,9 +252,9 @@ function JsonValue({ data }: { data: unknown }) {
           )}
           <span>"</span>
           {expanded ? (
-            <CaretUpIcon className="size-3 text-muted-foreground opacity-0 transition-opacity group-hover/value:opacity-100" />
+            <CaretUpIcon className="size-3 text-muted-foreground opacity-60 transition-opacity group-hover/value:opacity-100 group-focus-visible/value:opacity-100" />
           ) : (
-            <DotsThreeIcon className="size-3 text-muted-foreground opacity-0 transition-opacity group-hover/value:opacity-100" />
+            <DotsThreeIcon className="size-3 text-muted-foreground opacity-60 transition-opacity group-hover/value:opacity-100 group-focus-visible/value:opacity-100" />
           )}
         </button>
       );
