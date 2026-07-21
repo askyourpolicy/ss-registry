@@ -20,8 +20,13 @@ RUN bun run build
 
 FROM nginx:1.29-alpine AS runtime
 
-COPY --from=build /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+RUN touch /var/run/nginx.pid \
+  && chown -R nginx:nginx /etc/nginx/conf.d /var/cache/nginx /var/run/nginx.pid
+
+COPY --chown=nginx:nginx --from=build /app/dist /usr/share/nginx/html
+COPY --chown=nginx:nginx nginx.conf /etc/nginx/conf.d/default.conf
+
+USER nginx
 
 EXPOSE 8080
 
