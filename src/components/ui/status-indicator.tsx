@@ -20,23 +20,23 @@ const toneClasses: Record<
 > = {
   neutral: {
     badge: "border-border-subtle bg-muted text-muted-foreground",
-    dot: "bg-muted-foreground",
+    dot: "bg-muted-foreground/60 dark:bg-muted-foreground/80",
   },
   info: {
     badge: "border-status-info/25 bg-status-info-muted text-status-info-muted-foreground",
-    dot: "bg-status-info",
+    dot: "bg-status-info/60 dark:bg-status-info/80",
   },
   success: {
     badge: "border-status-success/25 bg-status-success-muted text-status-success-muted-foreground",
-    dot: "bg-status-success",
+    dot: "bg-status-success/60 dark:bg-status-success/80",
   },
   warning: {
     badge: "border-status-warning/25 bg-status-warning-muted text-status-warning-muted-foreground",
-    dot: "bg-status-warning",
+    dot: "bg-status-warning/60 dark:bg-status-warning/80",
   },
   destructive: {
     badge: "border-destructive/20 bg-destructive/10 text-destructive",
-    dot: "bg-destructive",
+    dot: "bg-destructive/60 dark:bg-destructive/80",
   },
 };
 

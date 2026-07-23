@@ -7,7 +7,11 @@ import { cn } from "@/lib/utils";
 
 function DataTableCard({ className, ...props }: React.ComponentProps<typeof Card>) {
   return (
-    <Card data-component="data-table-card" className={cn("gap-0 py-0", className)} {...props} />
+    <Card
+      data-component="data-table-card"
+      className={cn("gap-0 bg-muted/20 py-0 ring-border-subtle", className)}
+      {...props}
+    />
   );
 }
 
@@ -16,7 +20,50 @@ function DataTableCardToolbar({ className, ...props }: React.ComponentProps<"div
     <div
       data-slot="data-table-card-toolbar"
       className={cn(
-        "flex min-h-12 flex-col gap-3 border-b border-border-subtle p-4 sm:flex-row sm:items-center sm:justify-between",
+        "flex min-h-14 flex-col gap-4 border-b border-border-subtle bg-muted/30 p-4 sm:flex-row sm:items-start sm:justify-between",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+function DataTableCardHeading({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="data-table-card-heading"
+      className={cn("flex min-w-0 flex-1 flex-col gap-0", className)}
+      {...props}
+    />
+  );
+}
+
+function DataTableCardTitle({ className, ...props }: React.ComponentProps<"h2">) {
+  return (
+    <h2
+      data-slot="data-table-card-title"
+      className={cn("font-heading text-base leading-snug font-medium text-balance", className)}
+      {...props}
+    />
+  );
+}
+
+function DataTableCardDescription({ className, ...props }: React.ComponentProps<"p">) {
+  return (
+    <p
+      data-slot="data-table-card-description"
+      className={cn("text-sm leading-snug text-pretty text-muted-foreground", className)}
+      {...props}
+    />
+  );
+}
+
+function DataTableCardControls({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="data-table-card-controls"
+      className={cn(
+        "flex min-w-0 shrink-0 flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-end",
         className,
       )}
       {...props}
@@ -26,7 +73,11 @@ function DataTableCardToolbar({ className, ...props }: React.ComponentProps<"div
 
 function DataTableCardContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div data-slot="data-table-card-content" className={cn("min-w-0", className)} {...props} />
+    <div
+      data-slot="data-table-card-content"
+      className={cn("min-w-0 bg-card/80", className)}
+      {...props}
+    />
   );
 }
 
@@ -45,7 +96,7 @@ function DataTableCardFooter({ className, ...props }: React.ComponentProps<"div"
     <div
       data-slot="data-table-card-footer"
       className={cn(
-        "flex min-h-12 flex-col gap-3 border-t border-border-subtle bg-muted/30 p-4 sm:flex-row sm:items-center sm:justify-between",
+        "flex min-h-12 flex-col gap-3 border-t border-border-subtle bg-muted/40 p-4 sm:flex-row sm:items-center sm:justify-between",
         className,
       )}
       {...props}
@@ -88,10 +139,14 @@ function DataTableCardEmptyState({ className, ...props }: React.ComponentProps<t
 export {
   DataTableCard,
   DataTableCardContent,
+  DataTableCardControls,
+  DataTableCardDescription,
   DataTableCardEmptyRow,
   DataTableCardEmptyState,
   DataTableCardFooter,
+  DataTableCardHeading,
   DataTableCardTable,
+  DataTableCardTitle,
   DataTableCardToolbar,
   type DataTableCardEmptyRowProps,
 };

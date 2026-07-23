@@ -13,9 +13,14 @@ import {
 import {
   DataTableCard,
   DataTableCardContent,
+  DataTableCardControls,
+  DataTableCardDescription,
   DataTableCardEmptyRow,
   DataTableCardEmptyState,
+  DataTableCardHeading,
   DataTableCardTable,
+  DataTableCardTitle,
+  DataTableCardToolbar,
 } from "@/components/ui/data-table-card";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty";
@@ -46,6 +51,31 @@ describe("catalog component semantics", () => {
     expect(screen.getByRole("cell")).toHaveAttribute("colspan", "4");
     expect(screen.getByText("No results")).toBeInTheDocument();
     expect(container.querySelectorAll("[data-slot='table-container']")).toHaveLength(1);
+  });
+
+  it("composes table headings and controls inside the table surface", () => {
+    render(
+      <DataTableCard>
+        <DataTableCardToolbar>
+          <DataTableCardHeading>
+            <DataTableCardTitle>Recent files</DataTableCardTitle>
+            <DataTableCardDescription>
+              Files received from connected sources.
+            </DataTableCardDescription>
+          </DataTableCardHeading>
+          <DataTableCardControls>
+            <button type="button">Refresh</button>
+          </DataTableCardControls>
+        </DataTableCardToolbar>
+      </DataTableCard>,
+    );
+
+    const heading = screen.getByRole("heading", { level: 2, name: "Recent files" });
+    expect(heading).toBeInTheDocument();
+    expect(screen.getByText("Files received from connected sources.").tagName).toBe("P");
+    expect(heading.closest("[data-slot='data-table-card-heading']")).toHaveClass("gap-0");
+    expect(heading.closest("[data-slot='data-table-card-toolbar']")).toHaveClass("sm:items-start");
+    expect(screen.getByRole("button", { name: "Refresh" })).toBeInTheDocument();
   });
 
   it("provides accessible brand and authentication layout semantics", () => {
