@@ -234,6 +234,19 @@
       ]
     },
     {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "Disclosure primitive that toggles a labelled panel.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
+        {
+          "path": "src/components/ui/collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "confirm-dialog",
       "type": "registry:ui",
       "title": "Confirm Dialog",
@@ -247,6 +260,27 @@
         {
           "path": "src/components/ui/confirm-dialog.tsx",
           "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "copy-button",
+      "type": "registry:ui",
+      "title": "Copy Button",
+      "description": "Copy-to-clipboard button with transient copied and failed feedback, plus the hook behind it.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/button"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/copy-button.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/hooks/use-copy-to-clipboard.ts",
+          "type": "registry:hook",
+          "target": "src/hooks/use-copy-to-clipboard.ts"
         }
       ]
     },
@@ -336,6 +370,20 @@
       "files": [
         {
           "path": "src/components/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input-otp",
+      "type": "registry:ui",
+      "title": "Input OTP",
+      "description": "Segmented one-time-code input for MFA challenge and enrollment forms.",
+      "dependencies": ["input-otp@^1.4.2"],
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
+        {
+          "path": "src/components/ui/input-otp.tsx",
           "type": "registry:ui"
         }
       ]
@@ -572,6 +620,95 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "supabase-auth",
+      "type": "registry:block",
+      "title": "Supabase Auth",
+      "description": "Supabase email, password, and TOTP authentication module with session provider, route guards, sign-up, and authenticator enrollment screens.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/alert",
+        "askyourpolicy/ss-registry/auth-shell",
+        "askyourpolicy/ss-registry/button",
+        "askyourpolicy/ss-registry/card",
+        "askyourpolicy/ss-registry/collapsible",
+        "askyourpolicy/ss-registry/copy-button",
+        "askyourpolicy/ss-registry/input",
+        "askyourpolicy/ss-registry/input-otp",
+        "askyourpolicy/ss-registry/label",
+        "askyourpolicy/ss-registry/spinner",
+        "askyourpolicy/ss-registry/stitch-brand",
+        "askyourpolicy/ss-registry/supabase-client"
+      ],
+      "dependencies": [
+        "@supabase/supabase-js@^2.110.7",
+        "@tanstack/react-query@^5.101.2",
+        "react-router-dom@^7.18.1"
+      ],
+      "files": [
+        {
+          "path": "src/auth/auth.tsx",
+          "type": "registry:component",
+          "target": "src/auth/auth.tsx"
+        },
+        {
+          "path": "src/auth/auth-error.tsx",
+          "type": "registry:component",
+          "target": "src/auth/auth-error.tsx"
+        },
+        {
+          "path": "src/auth/auth-page.tsx",
+          "type": "registry:component",
+          "target": "src/auth/auth-page.tsx"
+        },
+        {
+          "path": "src/auth/auth-provider.tsx",
+          "type": "registry:component",
+          "target": "src/auth/auth-provider.tsx"
+        },
+        {
+          "path": "src/auth/auth-state.ts",
+          "type": "registry:component",
+          "target": "src/auth/auth-state.ts"
+        },
+        {
+          "path": "src/auth/authorization.ts",
+          "type": "registry:component",
+          "target": "src/auth/authorization.ts"
+        },
+        {
+          "path": "src/auth/guards.tsx",
+          "type": "registry:component",
+          "target": "src/auth/guards.tsx"
+        },
+        {
+          "path": "src/auth/sign-up-form.tsx",
+          "type": "registry:component",
+          "target": "src/auth/sign-up-form.tsx"
+        },
+        {
+          "path": "src/auth/totp-enrollment-form.tsx",
+          "type": "registry:component",
+          "target": "src/auth/totp-enrollment-form.tsx"
+        }
+      ],
+      "docs": "Wrap the application in QueryClientProvider and AuthProvider. Route /auth to <AuthPage appName=\"Your App\" />, /auth/sign-up to <AuthPage appName=\"Your App\" mode=\"sign-up\" />, and nest authenticated routes under <ProtectedRoute />. Supabase must have TOTP multi-factor enabled, and StitchEmailGate restricts routes to @stitchstudio.ai accounts."
+    },
+    {
+      "name": "supabase-client",
+      "type": "registry:lib",
+      "title": "Supabase Client",
+      "description": "Lazily constructed browser Supabase client read from Vite environment variables.",
+      "dependencies": ["@supabase/supabase-js@^2.110.7"],
+      "files": [
+        {
+          "path": "src/lib/supabase.ts",
+          "type": "registry:lib",
+          "target": "src/lib/supabase.ts"
+        }
+      ],
+      "docs": "Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY. Applications that validate their own environment can rewrite getSupabaseClient to read from that module instead."
     },
     {
       "name": "table",

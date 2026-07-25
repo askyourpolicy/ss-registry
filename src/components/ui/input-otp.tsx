@@ -1,10 +1,10 @@
 "use client";
 
+import { MinusIcon } from "@phosphor-icons/react";
 import * as React from "react";
 import { OTPInput, OTPInputContext } from "input-otp";
 
 import { cn } from "@/lib/utils";
-import { MinusIcon } from "@phosphor-icons/react";
 
 function InputOTP({
   className,
@@ -83,4 +83,4 @@ function InputOTPSeparator({ ...props }: React.ComponentProps<"div">) {
   );
 }
 
-export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator };
+export { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot };

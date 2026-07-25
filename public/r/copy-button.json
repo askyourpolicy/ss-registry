@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "copy-button",
+  "title": "Copy Button",
+  "description": "Copy-to-clipboard button with transient copied and failed feedback, plus the hook behind it.",
+  "registryDependencies": [
+    "askyourpolicy/ss-registry/stitch-base",
+    "askyourpolicy/ss-registry/button"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/copy-button.tsx",
+      "content": "\"use client\";\n\nimport { CheckIcon, CopyIcon } from \"@phosphor-icons/react\";\nimport * as React from \"react\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { useCopyToClipboard } from \"@/hooks/use-copy-to-clipboard\";\nimport { cn } from \"@/lib/utils\";\n\ntype CopyButtonProps = Omit<React.ComponentProps<typeof Button>, \"onClick\" | \"value\"> & {\n  /** Names what is being copied, e.g. \"setup key\" renders \"Copy setup key\". */\n  label: string;\n  value: string;\n};\n\nfunction CopyButton({\n  children,\n  label,\n  size = \"icon-xs\",\n  value,\n  variant = \"ghost\",\n  ...props\n}: CopyButtonProps) {\n  const { copy, status } = useCopyToClipboard();\n  // Button padding only tightens for an icon that sits beside content.\n  const iconPlacement = children ? \"inline-end\" : undefined;\n\n  return (\n    <>\n      <Button\n        aria-label={\n          status === \"copied\"\n            ? `${label} copied`\n            : status === \"error\"\n              ? `Copy ${label} failed. Try again`\n              : `Copy ${label}`\n        }\n        data-slot=\"copy-button\"\n        onClick={() => void copy(value)}\n        size={size}\n        type=\"button\"\n        variant={variant}\n        {...props}\n      >\n        {children}\n        {status === \"copied\" ? (\n          <CheckIcon className=\"text-status-success\" data-icon={iconPlacement} weight=\"bold\" />\n        ) : (\n          <CopyIcon\n            className={cn(\"text-muted-foreground\", status === \"error\" && \"text-destructive\")}\n            data-icon={iconPlacement}\n          />\n        )}\n      </Button>\n      <span aria-live=\"polite\" className=\"sr-only\" role=\"status\">\n        {status === \"copied\"\n          ? `${label} copied to clipboard.`\n          : status === \"error\"\n            ? `${label} could not be copied. Try again.`\n            : \"\"}\n      </span>\n    </>\n  );\n}\n\nexport { CopyButton };\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/hooks/use-copy-to-clipboard.ts",
+      "content": "import { useCallback, useEffect, useRef, useState } from \"react\";\n\nexport type CopyStatus = \"copied\" | \"error\" | \"idle\";\n\nexport function useCopyToClipboard({ resetAfter = 1600 }: { resetAfter?: number } = {}) {\n  const [status, setStatus] = useState<CopyStatus>(\"idle\");\n  const timer = useRef<number | null>(null);\n\n  const clearTimer = useCallback(() => {\n    if (timer.current !== null) {\n      window.clearTimeout(timer.current);\n      timer.current = null;\n    }\n  }, []);\n\n  useEffect(() => clearTimer, [clearTimer]);\n\n  const copy = useCallback(\n    async (value: string) => {\n      clearTimer();\n      let copied = true;\n      try {\n        if (!navigator.clipboard?.writeText) {\n          throw new Error(\"Clipboard access is unavailable.\");\n        }\n        await navigator.clipboard.writeText(value);\n      } catch {\n        copied = false;\n      }\n\n      setStatus(copied ? \"copied\" : \"error\");\n      timer.current = window.setTimeout(() => {\n        setStatus(\"idle\");\n        timer.current = null;\n      }, resetAfter);\n      return copied;\n    },\n    [clearTimer, resetAfter],\n  );\n\n  return { copy, status };\n}\n",
+      "type": "registry:hook",
+      "target": "src/hooks/use-copy-to-clipboard.ts"
+    }
+  ],
+  "type": "registry:ui"
+}
