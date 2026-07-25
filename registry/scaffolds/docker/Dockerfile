@@ -11,17 +11,18 @@ WORKDIR /app
 
 COPY . .
 
-# VITE_* values are public client configuration compiled into the bundle at build time.
-# Declare an ARG/ENV pair for each value the application needs, then pass --build-arg.
-ARG VITE_API_URL=""
-ENV VITE_API_URL=${VITE_API_URL}
+# VITE_* values are public client configuration compiled into the bundle at
+# build time. Generate the file with scripts/generate-env.sh and pass its path as
+# ENV_FILE. The destination name matters: Vite only auto-loads .env.production
+# for the production-mode build that `bun run build` runs.
+ARG ENV_FILE
+COPY ${ENV_FILE} .env.production
 
 RUN bun run build
 
 FROM nginx:1.29-alpine AS runtime
 
-RUN touch /var/run/nginx.pid \
-  && chown -R nginx:nginx /etc/nginx/conf.d /var/cache/nginx /var/run/nginx.pid
+RUN chown -R nginx:nginx /var/cache/nginx /run
 
 COPY --chown=nginx:nginx --from=build /app/dist /usr/share/nginx/html
 COPY --chown=nginx:nginx nginx.conf /etc/nginx/conf.d/default.conf

@@ -880,9 +880,14 @@
           "path": "registry/scaffolds/docker/.dockerignore",
           "type": "registry:file",
           "target": "~/.dockerignore"
+        },
+        {
+          "path": "registry/scaffolds/docker/generate-env.sh",
+          "type": "registry:file",
+          "target": "~/scripts/generate-env.sh"
         }
       ],
-      "docs": "VITE_* variables are public client configuration compiled into the bundle during the image build. Declare and pass each required value as a Docker build argument; runtime environment changes do not rewrite the built bundle."
+      "docs": "VITE_* variables are public client configuration compiled into the bundle during the image build; runtime environment changes do not rewrite the built bundle. Build them in with an env file rather than one build argument per value: run `chmod +x scripts/generate-env.sh && ./scripts/generate-env.sh <project> <env> [component]` to write .env.<project>-<env> from AWS Secrets Manager, then build with `--build-arg ENV_FILE=.env.<project>-<env>`. ENV_FILE has no default and the build fails without it. The script reuses an existing env file, so hand-write one to build without AWS access. Keep .env out of the build context: Vite loads it in every mode, so a developer copy would backfill any key the secret omits."
     },
     {
       "name": "stitch-vite-starter",

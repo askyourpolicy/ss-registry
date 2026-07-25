@@ -35,7 +35,7 @@ React 19 and React DOM 19 are required.
 | `stitch-base`         | Theme, utilities, and shared tooling              |
 | `stitch-core`         | Base plus common primitives and components        |
 | `stitch-vite`         | Vite, TypeScript, Tailwind CSS, and Vitest config |
-| `stitch-docker`       | Bun Dockerfile, nginx config, and `.dockerignore` |
+| `stitch-docker`       | Bun Dockerfile, nginx config, and env generation  |
 | `stitch-vite-starter` | Base, core, Vite, and Docker bundles              |
 
 Install any bundle with the same command:
@@ -44,7 +44,9 @@ Install any bundle with the same command:
 bunx shadcn@latest add askyourpolicy/ss-registry/stitch-vite-starter
 ```
 
-Scaffold bundles target root-level files.
+Scaffold bundles target root-level files, apart from `stitch-docker`, which also
+writes `scripts/generate-env.sh`. Mark that script executable after installing it;
+shadcn does not preserve the executable bit.
 
 Preview changes with `--dry-run` before using `--overwrite`.
 

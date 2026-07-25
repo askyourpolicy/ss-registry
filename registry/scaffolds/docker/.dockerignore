@@ -1,7 +1,13 @@
 .git
 .gitignore
 .DS_Store
-.env*
+
+# Local env files only. The generated .env.<project>-<env> that ENV_FILE points
+# at must stay in the build context, so this cannot be a blanket .env* ignore.
+.env
+.env.local
+.env.*.local
+
 .vercel
 coverage
 dist
