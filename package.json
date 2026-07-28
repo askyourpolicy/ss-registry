@@ -31,7 +31,7 @@
     "react-day-picker": "^10.0.1",
     "react-hook-form": "^7.80.0",
     "react-resizable-panels": "^4.12.0",
-    "react-router-dom": "^7.18.1",
+    "react-router": "^8.3.0",
     "recharts": "3.9.2",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.6.0",
@@ -48,20 +48,23 @@
     "jsdom": "^29.1.1",
     "oxfmt": "^0.56.0",
     "oxlint": "^1.71.0",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "shadcn": "^4.12.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "shadcn": "^4.16.0",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vite": "^8.1.5",
     "vitest": "^4.1.10"
   },
   "peerDependencies": {
-    "react": ">=19",
-    "react-dom": ">=19"
+    "react": ">=19.2.7",
+    "react-dom": ">=19.2.7"
   },
   "overrides": {
-    "immer": "11.1.9"
+    "@hono/node-server": "2.0.5",
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "immer": "11.1.9",
+    "systeminformation": "5.33.1"
   },
   "ignoreScripts": [
     "sharp",

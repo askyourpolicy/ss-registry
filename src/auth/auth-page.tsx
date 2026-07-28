@@ -1,7 +1,7 @@
 "use client";
 
 import { type FormEvent, useState } from "react";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router";
 
 import { AuthError } from "@/auth/auth-error";
 import { useAuth } from "@/auth/auth-provider";
