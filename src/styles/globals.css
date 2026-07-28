@@ -64,6 +64,13 @@
   --ss-status-info-muted: #e7edfb;
   --ss-status-info-muted-foreground: #274f92;
 
+  /* Categorical hues held at an even weight in OKLCH so no series shouts over its neighbours;
+     each clears 3:1 against the card so a thin bar or line still reads. */
+  --ss-chart-violet: #a73cdc;
+  --ss-chart-rose: #d72e64;
+  --ss-chart-amber: #dc7d00;
+  --ss-chart-teal: #009397;
+
   --space-xs: 4px;
   --space-sm: 12px;
   --space-base: 8px;
@@ -84,6 +91,9 @@
   --layout-max: 1280px;
   --layout-margin-desktop: 64px;
   --layout-margin-mobile: 16px;
+  /* The header variant of AppNavigation fills this, so anything sticking below the header — a table's
+     column headers, a toolbar — can offset itself by the same token. */
+  --app-header-height: 3rem;
 
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --ease-emphasized: cubic-bezier(0.3, 0, 0, 1);
@@ -129,11 +139,13 @@
   --input: var(--ss-outline-variant);
   --ring: var(--ss-primary);
 
+  /* The ramp walks the wheel from the brand indigo through warm hues and closes on a cool teal, so
+     adjacent series stay distinct without any of them reading as success or failure. */
   --chart-1: var(--ss-primary);
-  --chart-2: var(--ss-secondary);
-  --chart-3: var(--ss-tertiary);
-  --chart-4: var(--ss-primary-fixed-dim);
-  --chart-5: var(--ss-surface-dim);
+  --chart-2: var(--ss-chart-violet);
+  --chart-3: var(--ss-chart-rose);
+  --chart-4: var(--ss-chart-amber);
+  --chart-5: var(--ss-chart-teal);
 
   --sidebar: var(--ss-surface-lowest);
   --sidebar-foreground: var(--ss-ink);
@@ -175,6 +187,13 @@
   --border-subtle: rgb(244 240 236 / 10%);
   --input: rgb(244 240 236 / 20%);
   --ring: var(--ss-inverse-primary);
+
+  /* Same hues lifted for a dark surface; the brand indigo is too dim here to carry a series. */
+  --chart-1: #7b94ff;
+  --chart-2: #c684ec;
+  --chart-3: #f17f97;
+  --chart-4: #f9b465;
+  --chart-5: #5ac0c4;
 
   --sidebar: #272624;
   --sidebar-foreground: var(--ss-inverse-ink);

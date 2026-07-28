@@ -131,7 +131,8 @@
           "path": "src/components/ui/app-navigation.tsx",
           "type": "registry:ui"
         }
-      ]
+      ],
+      "docs": "The header variant sizes its links with --app-header-height, so a sticky toolbar or table header can offset itself by the same token instead of hard-coding the height."
     },
     {
       "name": "auth-shell",
@@ -190,6 +191,24 @@
       ]
     },
     {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "Day picker surface styled with Stitch buttons, radii, and range treatments.",
+      "dependencies": ["react-day-picker@^10.0.1"],
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/button"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/calendar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Wraps react-day-picker, so mode, selected, and numberOfMonths come straight from its API. react-day-picker is pinned to 10.x because its class name keys change between majors."
+    },
+    {
       "name": "card",
       "type": "registry:ui",
       "title": "Card",
@@ -201,6 +220,21 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "description": "Recharts container, style, tooltip, and legend primitives bound to the Stitch chart palette.",
+      "dependencies": ["recharts@3.9.2"],
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
+        {
+          "path": "src/components/ui/chart.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Pass a ChartConfig to ChartContainer so each series resolves --color-<key>; the theme ships --chart-1 through --chart-5 for that purpose. Recharts is pinned because its 3.x minors have shipped breaking chart-surface changes."
     },
     {
       "name": "checkbox",
@@ -301,6 +335,25 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "date-range-picker",
+      "type": "registry:ui",
+      "title": "Date Range Picker",
+      "description": "Popover-anchored calendar for choosing an optional from/to range.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/button",
+        "askyourpolicy/ss-registry/calendar",
+        "askyourpolicy/ss-registry/popover"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/date-range-picker.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Controlled: pass value plus onValueChange and leave value undefined for an empty range. The trigger label is built with Intl.DateTimeFormat.formatRange, so a shared month or year collapses automatically. Space the surrounding field with gap rather than space-y: Base UI mounts focus guards beside the open trigger, and sibling-margin spacing then adds a margin that resizes the field as the popover opens."
     },
     {
       "name": "dialog",
@@ -525,6 +578,19 @@
       "files": [
         {
           "path": "src/components/ui/pagination-controls.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Anchored popover surface with header, title, and description slots.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
+        {
+          "path": "src/components/ui/popover.tsx",
           "type": "registry:ui"
         }
       ]

@@ -91,7 +91,7 @@ function AppNavigationLink({
         className: cn(
           "outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50",
           variant === "header"
-            ? "flex h-12 items-center gap-1.5 border-b-2 border-transparent px-2 text-sm leading-5 font-medium text-muted-foreground hover:text-foreground focus-visible:border-ring"
+            ? "flex h-(--app-header-height) items-center gap-1.5 border-b-2 border-transparent px-2 text-sm leading-5 font-medium text-muted-foreground hover:text-foreground focus-visible:border-ring"
             : "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
           active &&
             (variant === "header"
