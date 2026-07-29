@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { Card } from "@/components/ui/card";
 import { Empty } from "@/components/ui/empty";
+import { Spinner } from "@/components/ui/spinner";
 import { Table, TableCell, TableRow } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
 
@@ -9,7 +10,10 @@ function DataTableCard({ className, ...props }: React.ComponentProps<typeof Card
   return (
     <Card
       data-component="data-table-card"
-      className={cn("gap-0 bg-muted/20 py-0 ring-border-subtle", className)}
+      className={cn(
+        "gap-0 bg-muted/20 py-0 ring-border-subtle has-data-[empty-state]:border has-data-[empty-state]:border-dashed has-data-[empty-state]:border-border-subtle has-data-[empty-state]:ring-0",
+        className,
+      )}
       {...props}
     />
   );
@@ -52,7 +56,10 @@ function DataTableCardDescription({ className, ...props }: React.ComponentProps<
   return (
     <p
       data-slot="data-table-card-description"
-      className={cn("text-sm leading-snug text-pretty text-muted-foreground", className)}
+      className={cn(
+        "max-w-prose text-sm leading-snug text-balance text-muted-foreground",
+        className,
+      )}
       {...props}
     />
   );
@@ -85,7 +92,10 @@ function DataTableCardTable({ className, ...props }: React.ComponentProps<typeof
   return (
     <Table
       data-component="data-table-card-table"
-      className={cn("min-w-full", className)}
+      className={cn(
+        "min-w-full [&_td:first-child]:pl-4 [&_td:last-child]:pr-4 [&_th:first-child]:pl-4 [&_th:last-child]:pr-4",
+        className,
+      )}
       {...props}
     />
   );
@@ -126,13 +136,40 @@ function DataTableCardEmptyRow({
   );
 }
 
+// A card holding an empty state trades its ring for a dashed border, which reads as "nothing here"
+// rather than a surface with content. A card still waiting on data must not read that way, so the two
+// are separate components: naming the state at the call site is what selects the treatment.
 function DataTableCardEmptyState({ className, ...props }: React.ComponentProps<typeof Empty>) {
   return (
     <Empty
       data-component="data-table-card-empty-state"
+      data-empty-state=""
       className={cn("min-h-40 rounded-none border-0 px-4 py-10", className)}
       {...props}
     />
+  );
+}
+
+type DataTableCardLoadingStateProps = Omit<React.ComponentProps<typeof Empty>, "children"> & {
+  label?: string;
+};
+
+function DataTableCardLoadingState({
+  className,
+  label = "Loading",
+  ...props
+}: DataTableCardLoadingStateProps) {
+  return (
+    <Empty
+      aria-live="polite"
+      data-component="data-table-card-loading-state"
+      className={cn("min-h-40 gap-2 rounded-none border-0 px-4 py-10", className)}
+      role="status"
+      {...props}
+    >
+      <Spinner aria-hidden="true" className="text-muted-foreground" />
+      <span className="text-sm text-muted-foreground">{label}</span>
+    </Empty>
   );
 }
 
@@ -145,8 +182,10 @@ export {
   DataTableCardEmptyState,
   DataTableCardFooter,
   DataTableCardHeading,
+  DataTableCardLoadingState,
   DataTableCardTable,
   DataTableCardTitle,
   DataTableCardToolbar,
   type DataTableCardEmptyRowProps,
+  type DataTableCardLoadingStateProps,
 };
