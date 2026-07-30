@@ -87,13 +87,12 @@ function MetricCard({
             </span>
           ) : null}
         </div>
-        {loading ? (
-          <Skeleton aria-hidden="true" className="h-8 w-28 max-w-full" />
-        ) : (
-          <CardTitle className={cn("text-3xl leading-none font-semibold", styles.accent)}>
-            {value}
-          </CardTitle>
-        )}
+        {/* The header is a grid, so a row that only appears once the data lands takes the whole page
+            below it down with it. Both slots stay mounted while loading and their skeletons are
+            measured in line heights, which is the one unit that tracks whatever type the slot holds. */}
+        <CardTitle className={cn("text-3xl leading-none font-semibold", styles.accent)}>
+          {loading ? <Skeleton aria-hidden="true" className="h-[1lh] w-28 max-w-full" /> : value}
+        </CardTitle>
         {delta != null || description != null ? (
           <div className="flex min-w-0 flex-wrap items-center gap-2 text-xs leading-snug">
             {delta != null ? (
@@ -102,7 +101,13 @@ function MetricCard({
               </span>
             ) : null}
             {description != null ? (
-              <span className="min-w-0 text-muted-foreground">{description}</span>
+              <span className="min-w-0 text-muted-foreground">
+                {loading ? (
+                  <Skeleton aria-hidden="true" className="h-[1lh] w-24 max-w-full" />
+                ) : (
+                  description
+                )}
+              </span>
             ) : null}
           </div>
         ) : null}

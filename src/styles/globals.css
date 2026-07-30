@@ -64,12 +64,24 @@
   --ss-status-info-muted: #e7edfb;
   --ss-status-info-muted-foreground: #274f92;
 
-  /* Categorical hues held at an even weight in OKLCH so no series shouts over its neighbours;
-     each clears 3:1 against the card so a thin bar or line still reads. */
-  --ss-chart-violet: #a73cdc;
-  --ss-chart-rose: #d72e64;
+  /* Categorical hues whose OKLCH lightness zig-zags rather than holding level, so neighbouring series
+     differ in weight as well as hue. Hue alone cannot carry a chart: it collapses in greyscale, it
+     collapses for the reader who cannot separate red from green, and two saturated hues of equal
+     weight shimmer along the edge they share. Each still clears 3:1 against the card so a thin bar or
+     line reads on its own. */
+  --ss-chart-violet: #cf66e0;
+  --ss-chart-rose: #be2357;
   --ss-chart-amber: #dc7d00;
-  --ss-chart-teal: #009397;
+  --ss-chart-teal: #198585;
+
+  /* A sequential scale holding one hue, the brand indigo, that tells its steps apart by weight alone.
+     That asks nothing of a reader's ability to separate hues and survives a greyscale print, so the
+     meaning moves to the legend. Reach for it over the categorical ramp when the series are stages of
+     one process rather than unrelated categories, and note that the ends of the scale sit close to the
+     card by design: the outer edge of a `soft` slice is soft rather than drawn. */
+  --ss-chart-indigo-strong: #3b34d9;
+  --ss-chart-indigo: #8b86fa;
+  --ss-chart-indigo-soft: #cdcbfd;
 
   --space-xs: 4px;
   --space-sm: 12px;
@@ -147,6 +159,13 @@
   --chart-4: var(--ss-chart-amber);
   --chart-5: var(--ss-chart-teal);
 
+  /* Stages of one pipeline, drawn from the indigo scale. Which step lands where is deliberate: the
+     failures take the step furthest from the card so the eye reaches them first, and the finished
+     majority takes the nearest so the widest slice recedes. */
+  --chart-outcome-fail: var(--ss-chart-indigo-strong);
+  --chart-outcome-progress: var(--ss-chart-indigo);
+  --chart-outcome-done: var(--ss-chart-indigo-soft);
+
   --sidebar: var(--ss-surface-lowest);
   --sidebar-foreground: var(--ss-ink);
   --sidebar-primary: var(--ss-primary);
@@ -190,10 +209,16 @@
 
   /* Same hues lifted for a dark surface; the brand indigo is too dim here to carry a series. */
   --chart-1: #7b94ff;
-  --chart-2: #c684ec;
-  --chart-3: #f17f97;
+  --chart-2: #f2aefd;
+  --chart-3: #e06984;
   --chart-4: #f9b465;
-  --chart-5: #5ac0c4;
+  --chart-5: #53b3b3;
+
+  /* The indigo scale turns over on a dark card, so its steps swap ends to keep their jobs: furthest
+     from the surface, and so first to the eye, is now the lightest. */
+  --chart-outcome-fail: #c1c1ff;
+  --chart-outcome-progress: #7b74d8;
+  --chart-outcome-done: #46446e;
 
   --sidebar: #272624;
   --sidebar-foreground: var(--ss-inverse-ink);
@@ -240,6 +265,9 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-chart-outcome-fail: var(--chart-outcome-fail);
+  --color-chart-outcome-progress: var(--chart-outcome-progress);
+  --color-chart-outcome-done: var(--chart-outcome-done);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
