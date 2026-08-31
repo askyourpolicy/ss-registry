@@ -1,0 +1,34 @@
+diff --git a/lib/read.js b/lib/read.js
+index bf1a1df420ed3d072cad6002ae235e64e8d26281..3627c24cbda80f9c1bc45a08195411650befbb15 100644
+--- a/lib/read.js
++++ b/lib/read.js
+@@ -12,7 +12,20 @@
+  */
+ 
+ const createError = require('http-errors')
+-const getBody = require('raw-body')
++let rawBodyPromise
++function getBody (stream, options, callback) {
++  rawBodyPromise ??= import('raw-body')
++  rawBodyPromise.then(
++    (rawBody) => {
++      try {
++        (rawBody.default || rawBody)(stream, options, callback)
++      } catch (error) {
++        callback(error)
++      }
++    },
++    callback
++  )
++}
+ const iconv = require('iconv-lite')
+ const onFinished = require('on-finished')
+ const zlib = require('node:zlib')
+@@ -99,6 +112,7 @@ function read (req, res, next, parse, debug, options) {
+   opts.encoding = verify
+     ? null
+     : encoding
++  opts.decoder = iconv.getDecoder
+ 
+   // assert charset is supported
+   if (opts.encoding === null && encoding !== null && !iconv.encodingExists(encoding)) {
