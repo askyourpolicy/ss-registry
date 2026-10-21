@@ -21,6 +21,7 @@ type ConfirmDialogVariant = "default" | "destructive";
 type ConfirmDialogProps = {
   cancelLabel?: React.ReactNode;
   children?: React.ReactNode;
+  confirmDisabled?: boolean;
   confirmLabel?: React.ReactNode;
   contentProps?: Omit<React.ComponentProps<typeof AlertDialogContent>, "children">;
   defaultOpen?: boolean;
@@ -51,6 +52,7 @@ function getDefaultErrorMessage(error: unknown) {
 function ConfirmDialog({
   cancelLabel = "Cancel",
   children,
+  confirmDisabled = false,
   confirmLabel = "Confirm",
   contentProps,
   defaultOpen = false,
@@ -157,7 +159,7 @@ function ConfirmDialog({
           <AlertDialogCancel disabled={pending}>{cancelLabel}</AlertDialogCancel>
           <AlertDialogAction
             aria-busy={pending || undefined}
-            disabled={pending}
+            disabled={pending || confirmDisabled}
             onClick={handleConfirm}
             type="button"
             variant={variant}
