@@ -77,6 +77,31 @@ describe("ConfirmDialog", () => {
     });
   });
 
+  it("keeps the confirm action disabled while confirmDisabled is set", async () => {
+    const user = userEvent.setup();
+    const onConfirm = vi.fn();
+    const { rerender } = render(
+      <ConfirmDialog
+        confirmDisabled
+        confirmLabel="Retire"
+        onConfirm={onConfirm}
+        open
+        title="Retire?"
+      />,
+    );
+
+    const confirm = screen.getByRole("button", { name: "Retire" });
+    expect(confirm).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Cancel" })).toBeEnabled();
+
+    await user.click(confirm);
+    expect(onConfirm).not.toHaveBeenCalled();
+
+    rerender(<ConfirmDialog confirmLabel="Retire" onConfirm={onConfirm} open title="Retire?" />);
+    await user.click(screen.getByRole("button", { name: "Retire" }));
+    expect(onConfirm).toHaveBeenCalledTimes(1);
+  });
+
   it("clears failures when a controlled dialog is closed externally", async () => {
     const user = userEvent.setup();
     const onConfirm = vi.fn<() => Promise<void>>().mockRejectedValue(new Error("Try again."));
