@@ -27,7 +27,7 @@ type PageHeaderProps = Omit<ComponentProps<"header">, "title"> & {
 
 const titleSizeClasses: Record<PageHeaderSize, string> = {
   sm: "text-xl",
-  default: "text-2xl",
+  default: "text-3xl",
   lg: "text-3xl sm:text-4xl",
 };
 
@@ -60,7 +60,7 @@ function PageHeader({
       <div
         data-slot="page-header-row"
         className={cn(
-          "flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between",
+          "flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start sm:justify-between",
           classNames?.row,
         )}
       >

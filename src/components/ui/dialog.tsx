@@ -87,7 +87,12 @@ function DialogBody({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-body"
-      className={cn("row-start-2 min-h-0 overflow-y-auto overscroll-contain", className)}
+      className={cn(
+        // A scroll container clips at its padding box, so the body bleeds into the content's
+        // padding and pads itself back: a full-width field's focus ring then has room to draw.
+        "row-start-2 -mx-4 -my-1 min-h-0 overflow-y-auto overscroll-contain px-4 py-1",
+        className,
+      )}
       {...props}
     />
   );

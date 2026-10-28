@@ -39,6 +39,43 @@ function AppNavigation({
   );
 }
 
+type AppNavigationGroupProps = React.ComponentProps<"div"> & {
+  label: React.ReactNode;
+};
+
+/** A labelled set of links. The sidebar shows the label above them; the header keeps it for screen readers. */
+function AppNavigationGroup({ children, className, label, ...props }: AppNavigationGroupProps) {
+  const variant = React.useContext(AppNavigationContext);
+  if (!variant) {
+    throw new Error("AppNavigationGroup must be used inside AppNavigation.");
+  }
+  const labelId = React.useId();
+
+  return (
+    <div
+      aria-labelledby={labelId}
+      className={cn(
+        variant === "header" ? "flex min-w-0 items-center gap-1" : "mt-3 flex flex-col gap-1",
+        className,
+      )}
+      data-slot="app-navigation-group"
+      role="group"
+      {...props}
+    >
+      <div
+        className={
+          variant === "header" ? "sr-only" : "px-3 pb-1 text-xs font-medium text-muted-foreground"
+        }
+        data-slot="app-navigation-group-label"
+        id={labelId}
+      >
+        {label}
+      </div>
+      {children}
+    </div>
+  );
+}
+
 type AppNavigationLinkProps = useRender.ComponentProps<"a"> & {
   active?: boolean;
   icon?: React.ReactNode;
@@ -122,8 +159,10 @@ function isNavigationPathActive(pathname: string, routes: readonly string[]) {
 
 export {
   AppNavigation,
+  AppNavigationGroup,
   AppNavigationLink,
   isNavigationPathActive,
+  type AppNavigationGroupProps,
   type AppNavigationLinkProps,
   type AppNavigationProps,
   type AppNavigationVariant,

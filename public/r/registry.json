@@ -191,6 +191,22 @@
       ]
     },
     {
+      "name": "button-group",
+      "type": "registry:ui",
+      "title": "Button Group",
+      "description": "Stitch button group primitive.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/separator"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/button-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "calendar",
       "type": "registry:ui",
       "title": "Calendar",
@@ -218,6 +234,26 @@
         {
           "path": "src/components/ui/card.tsx",
           "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "catalog-card",
+      "type": "registry:ui",
+      "title": "Catalog Card",
+      "description": "Library card for catalog grids with a tile, status, fixed-height blurb, meta footer, and optional whole-card link.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/card"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/catalog-card.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "src/lib/interactive.ts",
+          "type": "registry:lib"
         }
       ]
     },
@@ -276,6 +312,23 @@
       "files": [
         {
           "path": "src/components/ui/collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "Combobox",
+      "description": "Stitch combobox primitive.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/button",
+        "askyourpolicy/ss-registry/input-group"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/combobox.tsx",
           "type": "registry:ui"
         }
       ]
@@ -416,6 +469,23 @@
       ]
     },
     {
+      "name": "filter-select",
+      "type": "registry:ui",
+      "title": "Filter Select",
+      "description": "Labelled native select joined into one toolbar filter control, with optional option counts.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/button-group",
+        "askyourpolicy/ss-registry/native-select"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/filter-select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
@@ -424,6 +494,24 @@
       "files": [
         {
           "path": "src/components/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "Input Group",
+      "description": "Stitch input group primitive.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/button",
+        "askyourpolicy/ss-registry/input",
+        "askyourpolicy/ss-registry/textarea"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/input-group.tsx",
           "type": "registry:ui"
         }
       ]
@@ -438,6 +526,22 @@
       "files": [
         {
           "path": "src/components/ui/input-otp.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "item",
+      "type": "registry:ui",
+      "title": "Item",
+      "description": "Stitch item primitive.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/separator"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/item.tsx",
           "type": "registry:ui"
         }
       ]
@@ -536,6 +640,23 @@
       ]
     },
     {
+      "name": "page-back-button",
+      "type": "registry:ui",
+      "title": "Page Back Button",
+      "description": "Icon button that goes back in history, or to a fallback route when the page was opened directly.",
+      "dependencies": ["react-router@^8.3.0"],
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/button"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/page-back-button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "page-header",
       "type": "registry:ui",
       "title": "Page Header",
@@ -592,6 +713,32 @@
       "files": [
         {
           "path": "src/components/ui/popover.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Stitch progress primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
+        {
+          "path": "src/components/ui/progress.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Stitch radio group primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
+        {
+          "path": "src/components/ui/radio-group.tsx",
           "type": "registry:ui"
         }
       ]
@@ -794,6 +941,19 @@
       "docs": "Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY. Applications that validate their own environment can rewrite getSupabaseClient to read from that module instead."
     },
     {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "Stitch switch primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
+        {
+          "path": "src/components/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "table",
       "type": "registry:ui",
       "title": "Table",
@@ -841,6 +1001,51 @@
       "files": [
         {
           "path": "src/components/ui/timeline.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "Stitch toggle primitive.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
+        {
+          "path": "src/components/ui/toggle.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "description": "Stitch toggle group primitive.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/toggle"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/toggle-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toolbar-search",
+      "type": "registry:ui",
+      "title": "Toolbar Search",
+      "description": "List-toolbar search input with a leading icon and a clear button once there is a query.",
+      "registryDependencies": [
+        "askyourpolicy/ss-registry/stitch-base",
+        "askyourpolicy/ss-registry/input-group"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/toolbar-search.tsx",
           "type": "registry:ui"
         }
       ]

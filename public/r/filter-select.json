@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "filter-select",
+  "title": "Filter Select",
+  "description": "Labelled native select joined into one toolbar filter control, with optional option counts.",
+  "registryDependencies": [
+    "askyourpolicy/ss-registry/stitch-base",
+    "askyourpolicy/ss-registry/button-group",
+    "askyourpolicy/ss-registry/native-select"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/filter-select.tsx",
+      "content": "\"use client\";\n\nimport { useId } from \"react\";\n\nimport { ButtonGroup, ButtonGroupText } from \"@/components/ui/button-group\";\nimport { NativeSelect, NativeSelectOption } from \"@/components/ui/native-select\";\n\n/**\n * A filter question as one joined control: the label is a prefix on the\n * select, so it reads \"Status | All\" rather than as loose text beside it.\n */\nfunction FilterSelect({\n  label,\n  onChange,\n  options,\n  title,\n  value,\n}: {\n  label: string;\n  onChange: (value: string) => void;\n  options: Array<{ count?: number; key: string; label: string }>;\n  /** Hover text for the control. Defaults to \"Filter by <label>.\"; pass your own to translate it. */\n  title?: string;\n  value: string;\n}) {\n  const id = useId();\n  return (\n    <ButtonGroup className=\"shrink-0\" title={title ?? `Filter by ${label.toLowerCase()}.`}>\n      <ButtonGroupText\n        className=\"border-input font-normal text-muted-foreground dark:bg-input/50\"\n        render={<label htmlFor={id} />}\n      >\n        {label}\n      </ButtonGroupText>\n      <NativeSelect\n        className=\"max-w-40 [&>select]:rounded-l-none [&>select]:border-l-0 [&>select]:[field-sizing:content]\"\n        id={id}\n        onChange={(event) => onChange(event.target.value)}\n        value={value}\n      >\n        {options.map((option) => (\n          <NativeSelectOption key={option.key} value={option.key}>\n            {option.label}\n            {option.count !== undefined ? ` (${option.count})` : \"\"}\n          </NativeSelectOption>\n        ))}\n      </NativeSelect>\n    </ButtonGroup>\n  );\n}\n\nexport { FilterSelect };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

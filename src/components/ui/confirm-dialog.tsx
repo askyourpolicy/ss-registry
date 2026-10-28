@@ -139,7 +139,8 @@ function ConfirmDialog({
         {children != null || error != null ? (
           <div
             data-slot="confirm-dialog-content"
-            className="row-start-2 flex min-h-0 flex-col gap-3 overflow-y-auto overscroll-contain"
+            // Bleeds into the content's padding so a full-width field's focus ring is not clipped.
+            className="row-start-2 -mx-4 -my-1 flex min-h-0 flex-col gap-3 overflow-y-auto overscroll-contain px-4 py-1"
           >
             {children}
             {error != null ? (

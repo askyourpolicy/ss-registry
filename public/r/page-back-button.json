@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "page-back-button",
+  "title": "Page Back Button",
+  "description": "Icon button that goes back in history, or to a fallback route when the page was opened directly.",
+  "dependencies": ["react-router@^8.3.0"],
+  "registryDependencies": [
+    "askyourpolicy/ss-registry/stitch-base",
+    "askyourpolicy/ss-registry/button"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/page-back-button.tsx",
+      "content": "\"use client\";\n\nimport { ArrowLeftIcon } from \"@phosphor-icons/react\";\nimport { useLocation, useNavigate } from \"react-router\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\n/** The one back affordance for pages: goes back in history, or to `fallback`\n *  when the page was opened directly and there is nothing in-app to go back to. */\nfunction PageBackButton({\n  className,\n  fallback = \"/\",\n  label = \"Go back\",\n  onClick,\n}: {\n  className?: string;\n  fallback?: string;\n  label?: string;\n  onClick?: () => void;\n}) {\n  const navigate = useNavigate();\n  const location = useLocation();\n  return (\n    <Button\n      aria-label={label}\n      className={cn(\"-ml-2 text-muted-foreground hover:text-foreground\", className)}\n      onClick={\n        onClick ??\n        (() => {\n          // React Router keys the first entry of a session \"default\": nothing in-app to go back to.\n          if (location.key === \"default\") void navigate(fallback);\n          else void navigate(-1);\n        })\n      }\n      size=\"icon\"\n      title={label}\n      type=\"button\"\n      variant=\"ghost\"\n    >\n      <ArrowLeftIcon />\n    </Button>\n  );\n}\n\nexport { PageBackButton };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

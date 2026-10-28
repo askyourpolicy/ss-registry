@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toolbar-search",
+  "title": "Toolbar Search",
+  "description": "List-toolbar search input with a leading icon and a clear button once there is a query.",
+  "registryDependencies": [
+    "askyourpolicy/ss-registry/stitch-base",
+    "askyourpolicy/ss-registry/input-group"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/toolbar-search.tsx",
+      "content": "\"use client\";\n\nimport { MagnifyingGlassIcon, XIcon } from \"@phosphor-icons/react\";\n\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupButton,\n  InputGroupInput,\n} from \"@/components/ui/input-group\";\nimport { cn } from \"@/lib/utils\";\n\n/** List-toolbar search: icon prefix, clear button once there's a query. */\nfunction ToolbarSearch({\n  className,\n  clearLabel = \"Clear search\",\n  label,\n  onChange,\n  title,\n  value,\n}: {\n  className?: string;\n  /** Accessible name of the clear button. */\n  clearLabel?: string;\n  /** Accessible name and placeholder of the input. */\n  label: string;\n  onChange: (value: string) => void;\n  title?: string;\n  value: string;\n}) {\n  return (\n    <InputGroup className={cn(\"min-w-56 flex-1\", className)}>\n      <InputGroupAddon>\n        <MagnifyingGlassIcon />\n      </InputGroupAddon>\n      <InputGroupInput\n        aria-label={label}\n        onChange={(event) => onChange(event.target.value)}\n        placeholder={label}\n        title={title}\n        value={value}\n      />\n      {value ? (\n        <InputGroupAddon align=\"inline-end\">\n          <InputGroupButton aria-label={clearLabel} onClick={() => onChange(\"\")} size=\"icon-xs\">\n            <XIcon />\n          </InputGroupButton>\n        </InputGroupAddon>\n      ) : null}\n    </InputGroup>\n  );\n}\n\nexport { ToolbarSearch };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
