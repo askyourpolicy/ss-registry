@@ -312,9 +312,21 @@
 
   html {
     @apply bg-background font-sans text-foreground;
+    /* Reserve the scrollbar's lane so a page that grows past the viewport does not shift sideways. */
+    scrollbar-gutter: stable;
   }
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Headings carry the display face; body copy stays on the sans face. Without this the heading font
+     only reaches the components that ask for font-heading, and a plain page title reads as body text. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.011em;
   }
 }
