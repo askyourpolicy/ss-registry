@@ -10,12 +10,15 @@ import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select"
  * select, so it reads "Status | All" rather than as loose text beside it.
  */
 function FilterSelect({
+  invalid,
   label,
   onChange,
   options,
   title,
   value,
 }: {
+  /** The server refused this value. */
+  invalid?: boolean;
   label: string;
   onChange: (value: string) => void;
   options: Array<{ count?: number; key: string; label: string }>;
@@ -33,6 +36,7 @@ function FilterSelect({
         {label}
       </ButtonGroupText>
       <NativeSelect
+        aria-invalid={invalid || undefined}
         className="max-w-40 [&>select]:rounded-l-none [&>select]:border-l-0 [&>select]:[field-sizing:content]"
         id={id}
         onChange={(event) => onChange(event.target.value)}
