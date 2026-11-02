@@ -320,6 +320,28 @@
     @apply bg-background text-foreground;
   }
 
+  /* Text never leaves one word on its last line: the wrap style inherits, so every span, cell,
+     label and button gets it, not just paragraphs. A utility on an element still wins. */
+  body {
+    text-wrap: pretty;
+  }
+
+  /* Headings, and the short texts that sit beside or under them (descriptions, subtexts, labels,
+     table cells, titles of dialogs and alerts, error messages), balance into even lines. */
+  h1,
+  h2,
+  h3,
+  h4,
+  p.text-muted-foreground,
+  [data-slot$="description"],
+  [data-slot$="title"],
+  [data-slot$="error-message"],
+  label,
+  dt,
+  th,
+  td {
+    text-wrap: balance;
+  }
   /* Headings carry the display face; body copy stays on the sans face. Without this the heading font
      only reaches the components that ask for font-heading, and a plain page title reads as body text. */
   h1,

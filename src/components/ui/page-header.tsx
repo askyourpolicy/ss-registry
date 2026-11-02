@@ -46,7 +46,9 @@ function PageHeader({
     <header
       data-size={size}
       data-slot="page-header"
-      className={cn("flex min-w-0 flex-col gap-3", classNames?.root, className)}
+      // The title's tall line box already spaces it from the breadcrumbs; this gap makes the
+      // breadcrumbs sit as close above the title as the description sits below it.
+      className={cn("flex min-w-0 flex-col gap-0.5", classNames?.root, className)}
       {...props}
     >
       {breadcrumbs != null ? (
