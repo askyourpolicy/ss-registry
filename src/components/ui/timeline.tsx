@@ -39,7 +39,7 @@ function TimelineIndicator({ className, ...props }: React.ComponentProps<"span">
   return (
     <span
       className={cn(
-        "flex size-6 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-bold text-muted-foreground",
+        "flex size-6 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-medium text-muted-foreground",
         className,
       )}
       data-slot="timeline-indicator"

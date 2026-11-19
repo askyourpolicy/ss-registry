@@ -16,36 +16,40 @@ type MetricCardProps = Omit<ComponentProps<typeof Card>, "children"> & {
   value: ReactNode;
 };
 
+/** A metric's number: the display face, for a number shown outside a MetricCard too. */
+const metricValueClass = "font-heading text-2xl leading-none font-medium tabular-nums";
+
 const toneClasses: Record<
   MetricCardTone,
   {
-    accent: string;
+    /** The status dot before the label; the number itself stays in the text colour. */
+    dot: string | null;
     delta: string;
     icon: string;
   }
 > = {
   default: {
-    accent: "text-foreground",
+    dot: null,
     delta: "bg-muted text-muted-foreground",
     icon: "bg-muted text-muted-foreground",
   },
   positive: {
-    accent: "text-status-success",
+    dot: "bg-status-success",
     delta: "bg-status-success-muted text-status-success-muted-foreground",
     icon: "bg-status-success-muted text-status-success-muted-foreground",
   },
   warning: {
-    accent: "text-status-warning",
+    dot: "bg-status-warning",
     delta: "bg-status-warning-muted text-status-warning-muted-foreground",
     icon: "bg-status-warning-muted text-status-warning-muted-foreground",
   },
   destructive: {
-    accent: "text-destructive",
+    dot: "bg-destructive",
     delta: "bg-destructive/10 text-destructive",
     icon: "bg-destructive/10 text-destructive",
   },
   info: {
-    accent: "text-status-info",
+    dot: "bg-status-info",
     delta: "bg-status-info-muted text-status-info-muted-foreground",
     icon: "bg-status-info-muted text-status-info-muted-foreground",
   },
@@ -74,7 +78,19 @@ function MetricCard({
     >
       <CardHeader className="gap-2">
         <div className="flex min-w-0 items-start justify-between gap-3">
-          <CardDescription className="min-w-0">{label}</CardDescription>
+          <CardDescription className="min-w-0 text-balance">
+            {/* A status is a dot and its words: a tone marks the label, never colours the number. */}
+            {styles.dot ? (
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "mr-1.5 -mt-px inline-block size-2 rounded-full align-middle",
+                  styles.dot,
+                )}
+              />
+            ) : null}
+            {label}
+          </CardDescription>
           {icon != null ? (
             <span
               aria-hidden="true"
@@ -90,7 +106,7 @@ function MetricCard({
         {/* The header is a grid, so a row that only appears once the data lands takes the whole page
             below it down with it. Both slots stay mounted while loading and their skeletons are
             measured in line heights, which is the one unit that tracks whatever type the slot holds. */}
-        <CardTitle className={cn("text-3xl leading-none font-semibold", styles.accent)}>
+        <CardTitle className={metricValueClass}>
           {loading ? <Skeleton aria-hidden="true" className="h-[1lh] w-28 max-w-full" /> : value}
         </CardTitle>
         {delta != null || description != null ? (
@@ -116,4 +132,4 @@ function MetricCard({
   );
 }
 
-export { MetricCard, type MetricCardProps, type MetricCardTone };
+export { MetricCard, metricValueClass, type MetricCardProps, type MetricCardTone };

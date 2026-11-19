@@ -44,7 +44,7 @@ export function JsonViewer({
         )}
       >
         <div className="max-w-full">
-          <div className="w-max min-w-full whitespace-nowrap font-mono text-[11px]">
+          <div className="w-max min-w-full whitespace-nowrap font-mono text-xs">
             <JsonNode
               data={source}
               defaultExpanded={defaultExpanded}

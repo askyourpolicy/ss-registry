@@ -678,7 +678,7 @@
         "askyourpolicy/ss-registry/stitch-base",
         "askyourpolicy/ss-registry/alert",
         "askyourpolicy/ss-registry/empty",
-        "askyourpolicy/ss-registry/spinner"
+        "askyourpolicy/ss-registry/skeleton"
       ],
       "files": [
         {
