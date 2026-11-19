@@ -6,7 +6,7 @@
 /** A whole Card that navigates: wrap it in a link/button with `link`, put `card` on the Card. */
 export const interactiveCard = {
   card: "transition-all group-hover:-translate-y-0.5 group-hover:ring-primary/40 group-focus-visible:ring-primary/50",
-  link: "group block rounded-xl outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50",
+  link: "group block h-full rounded-xl outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50",
   title: "transition-colors group-hover:text-primary",
 };
 

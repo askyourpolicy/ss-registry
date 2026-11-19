@@ -342,12 +342,9 @@
   td {
     text-wrap: balance;
   }
-  /* Headings carry the display face; body copy stays on the sans face. Without this the heading font
-     only reaches the components that ask for font-heading, and a plain page title reads as body text. */
-  h1,
-  h2,
-  h3,
-  h4 {
+  /* The page title alone carries the display face. Every other title is the sans face at body size,
+     and stands out by weight and colour, so a screen holds two faces and three sizes. */
+  h1 {
     font-family: var(--font-heading);
     letter-spacing: -0.011em;
   }

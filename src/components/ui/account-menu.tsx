@@ -41,6 +41,8 @@ type AccountMenuProps = Omit<React.ComponentProps<typeof DropdownMenu>, "childre
   children: React.ReactNode;
   contentProps?: Omit<React.ComponentProps<typeof DropdownMenuContent>, "children">;
   description?: React.ReactNode;
+  /** False when the trigger already shows the name and description, so the menu doesn't repeat them. */
+  identity?: boolean;
   name: React.ReactNode;
   triggerClassName?: string;
   triggerLabel?: string;
@@ -51,6 +53,7 @@ function AccountMenu({
   children,
   contentProps,
   description,
+  identity = true,
   name,
   triggerClassName,
   triggerLabel = "Open account menu",
@@ -86,19 +89,23 @@ function AccountMenu({
         className={cn("min-w-56", contentClassName)}
         {...resolvedContentProps}
       >
-        <DropdownMenuGroup>
-          <DropdownMenuLabel className="p-2 font-normal" data-slot="account-menu-identity">
-            <span className="block truncate text-sm leading-snug font-medium text-foreground">
-              {name}
-            </span>
-            {description != null ? (
-              <span className="block truncate text-xs leading-snug text-muted-foreground">
-                {description}
-              </span>
-            ) : null}
-          </DropdownMenuLabel>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
+        {identity ? (
+          <>
+            <DropdownMenuGroup>
+              <DropdownMenuLabel className="p-2 font-normal" data-slot="account-menu-identity">
+                <span className="block truncate text-sm leading-snug font-medium text-foreground">
+                  {name}
+                </span>
+                {description != null ? (
+                  <span className="block truncate text-xs leading-snug text-muted-foreground">
+                    {description}
+                  </span>
+                ) : null}
+              </DropdownMenuLabel>
+            </DropdownMenuGroup>
+            <DropdownMenuSeparator />
+          </>
+        ) : null}
         {children}
       </DropdownMenuContent>
     </DropdownMenu>

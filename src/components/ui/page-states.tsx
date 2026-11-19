@@ -10,24 +10,49 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
-import { Spinner } from "@/components/ui/spinner";
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
 type PageLoadingProps = ComponentProps<"div"> & {
   label?: string;
 };
 
+/**
+ * A page while it waits for its content: the header's title and description, then a content
+ * block, so the page lands where this sat. The same shape while the page's code loads and while
+ * its data does, so one skeleton never gives way to another kind of wait.
+ */
 function PageLoading({ className, label = "Loading page", ...props }: PageLoadingProps) {
   return (
     <div
-      aria-live="polite"
-      className={cn("grid min-h-64 w-full place-items-center py-16", className)}
+      aria-busy="true"
+      aria-label={label}
+      className={cn("flex flex-col gap-6", className)}
       data-slot="page-loading"
       role="status"
       {...props}
     >
-      <Spinner aria-hidden="true" className="size-6 text-muted-foreground" />
-      <span className="sr-only">{label}</span>
+      <div className="flex flex-col gap-2">
+        <Skeleton className="h-8 w-56" />
+        <Skeleton className="h-4 w-full max-w-md" />
+      </div>
+      <Skeleton className="h-72 w-full rounded-xl" />
+    </div>
+  );
+}
+
+/** A section of a page while it waits for its content: one block where the content will sit. */
+function BlockLoading({ className, label = "Loading", ...props }: PageLoadingProps) {
+  return (
+    <div
+      aria-busy="true"
+      aria-label={label}
+      className={cn("w-full", className)}
+      data-slot="block-loading"
+      role="status"
+      {...props}
+    >
+      <Skeleton className="h-40 w-full rounded-xl" />
     </div>
   );
 }
@@ -97,6 +122,7 @@ function getErrorMessage(error: unknown, fallback = "An unexpected error occurre
 }
 
 export {
+  BlockLoading,
   PageEmpty,
   PageError,
   PageLoading,

@@ -51,16 +51,19 @@ function BrandLockup({
     >
       <StitchMark className={cn("-translate-y-px self-center text-primary", markClassName)} />
       <div className="min-w-0">
-        <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 leading-5">
-          <span className="font-heading text-base font-semibold tracking-tight">Stitch</span>
+        {/* The title is a line of body text (14px on a 20px line) whatever is in it: "Stitch" sits
+            on that line's baseline without making it taller. So text of that size beside the
+            lockup, such as the header's navigation, is on the same baseline at any zoom. */}
+        <div className="min-w-0 font-sans text-sm leading-5">
+          <span className="font-heading text-sm leading-none font-semibold tracking-tight">
+            Stitch
+          </span>
           {applicationName != null ? (
             <>
-              <span aria-hidden="true" className="text-border">
+              <span aria-hidden="true" className="mx-2 text-border">
                 /
               </span>
-              <span className="min-w-0 text-sm font-medium text-muted-foreground">
-                {applicationName}
-              </span>
+              <span className="font-medium text-muted-foreground">{applicationName}</span>
             </>
           ) : null}
         </div>

@@ -2,8 +2,6 @@ import type { ComponentProps, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
-type PageHeaderSize = "sm" | "default" | "lg";
-
 type PageHeaderClassNames = {
   actions?: string;
   breadcrumbs?: string;
@@ -21,14 +19,7 @@ type PageHeaderProps = Omit<ComponentProps<"header">, "title"> & {
   classNames?: PageHeaderClassNames;
   description?: ReactNode;
   eyebrow?: ReactNode;
-  size?: PageHeaderSize;
   title: ReactNode;
-};
-
-const titleSizeClasses: Record<PageHeaderSize, string> = {
-  sm: "text-xl",
-  default: "text-3xl",
-  lg: "text-3xl sm:text-4xl",
 };
 
 function PageHeader({
@@ -38,13 +29,11 @@ function PageHeader({
   classNames,
   description,
   eyebrow,
-  size = "default",
   title,
   ...props
 }: PageHeaderProps) {
   return (
     <header
-      data-size={size}
       data-slot="page-header"
       // The title's tall line box already spaces it from the breadcrumbs; this gap makes the
       // breadcrumbs sit as close above the title as the description sits below it.
@@ -74,18 +63,19 @@ function PageHeader({
             <div
               data-slot="page-header-eyebrow"
               className={cn(
-                "mb-1 text-xs font-semibold tracking-wide text-muted-foreground uppercase",
+                "mb-1 text-xs font-medium tracking-wide text-muted-foreground uppercase",
                 classNames?.eyebrow,
               )}
             >
               {eyebrow}
             </div>
           ) : null}
+          {/* One title size across the app: a screen has three sizes, 12, 14 and this one. The
+              page title is the one heavier weight. */}
           <h1
             data-slot="page-header-title"
             className={cn(
-              "font-heading leading-tight font-semibold tracking-tight text-balance",
-              titleSizeClasses[size],
+              "font-heading text-2xl leading-tight font-semibold tracking-tight text-balance",
               classNames?.title,
             )}
           >
@@ -96,7 +86,6 @@ function PageHeader({
               data-slot="page-header-description"
               className={cn(
                 "mt-1 text-sm leading-snug text-balance text-muted-foreground",
-                size === "lg" && "sm:text-base",
                 classNames?.description,
               )}
             >
@@ -107,7 +96,11 @@ function PageHeader({
         {actions != null ? (
           <div
             data-slot="page-header-actions"
-            className={cn("flex shrink-0 flex-wrap items-center gap-2", classNames?.actions)}
+            // An action that renders nothing (no permission here) leaves no gap under the title.
+            className={cn(
+              "flex shrink-0 flex-wrap items-center gap-2 empty:hidden",
+              classNames?.actions,
+            )}
           >
             {actions}
           </div>
@@ -117,4 +110,4 @@ function PageHeader({
   );
 }
 
-export { PageHeader, type PageHeaderClassNames, type PageHeaderProps, type PageHeaderSize };
+export { PageHeader, type PageHeaderClassNames, type PageHeaderProps };

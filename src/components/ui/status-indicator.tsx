@@ -35,7 +35,8 @@ function StatusIndicator({ className, label, tone = "neutral", ...props }: Statu
       data-tone={tone}
       {...props}
     >
-      <span aria-hidden="true" className={cn("size-1.5 shrink-0 rounded-full", DOTS[tone])} />
+      {/* 8px beside 14px text: big enough to read as a colour, small enough to stay a mark. */}
+      <span aria-hidden="true" className={cn("size-2 shrink-0 rounded-full", DOTS[tone])} />
       <span className="min-w-0 truncate">{label}</span>
     </span>
   );

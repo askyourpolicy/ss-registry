@@ -46,7 +46,7 @@ function DataTableCardTitle({ className, ...props }: React.ComponentProps<"h2">)
   return (
     <h2
       data-slot="data-table-card-title"
-      className={cn("font-heading text-base leading-snug font-medium text-balance", className)}
+      className={cn("text-sm leading-snug font-medium text-balance", className)}
       {...props}
     />
   );

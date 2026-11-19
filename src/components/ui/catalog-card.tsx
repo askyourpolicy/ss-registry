@@ -46,9 +46,12 @@ function CatalogTile({
 
 type CatalogCardProps = {
   action?: ReactNode;
+  /** A secondary chip, such as "Pinned by a release". It sits in the footer, so the title keeps its width. */
+  badge?: ReactNode;
   description?: ReactNode;
-  /** The blurb always takes this many lines, so every card in a row lines up. */
-  descriptionLines?: 1 | 2;
+  /** The blurb always takes this many lines, so every card in a row lines up:
+   *  1 truncates, 2 clamps, and "all" shows a short description whole. */
+  descriptionLines?: 1 | 2 | "all";
   details?: ReactNode;
   /** Makes the whole card a plain link. Pass `render` instead to use a router's link. */
   href?: string;
@@ -58,12 +61,17 @@ type CatalogCardProps = {
   render?: useRender.RenderProp;
   /** A status dot, shown opposite the title. */
   status?: ReactNode;
-  subtitle: ReactNode;
+  subtitle?: ReactNode;
   title: ReactNode;
 };
 
+/** The title's link on a card with an action: it stretches over the whole card. */
+const stretchedLink =
+  "outline-none after:absolute after:inset-0 after:rounded-xl focus-visible:after:ring-[3px] focus-visible:after:ring-ring/50";
+
 function CatalogCard({
   action,
+  badge,
   description,
   descriptionLines = 2,
   details,
@@ -76,18 +84,36 @@ function CatalogCard({
   title,
 }: CatalogCardProps) {
   const linked = Boolean(href || render);
+  // A card with a button can't sit inside a link. Its title carries the link instead and
+  // stretches over the whole card; the footer's badge and action sit above that.
+  const stretched = linked && Boolean(action);
+  const titleLink = useRender({
+    defaultTagName: "a",
+    props: mergeProps<"a">({ className: stretchedLink, href }, { children: title }),
+    render,
+  });
 
   const card = (
     <Card
-      className={cn("h-full", linked && interactiveCard.card)}
+      className={cn("h-full", linked && interactiveCard.card, stretched && "relative")}
       data-slot="catalog-card"
       size="sm"
     >
       <CardHeader className="flex items-center gap-3">
         {media}
         <div className="min-w-0 flex-1 space-y-0.5">
-          <CardTitle className={cn("truncate", linked && interactiveCard.title)}>{title}</CardTitle>
-          <CardDescription className="truncate text-xs">{subtitle}</CardDescription>
+          {/* CardTitle balances its text, which wraps it; nowrap lets truncate clip to one line. */}
+          <CardTitle
+            className={cn(
+              "truncate text-nowrap group-data-[size=sm]/card:text-sm",
+              linked && interactiveCard.title,
+            )}
+          >
+            {stretched ? titleLink : title}
+          </CardTitle>
+          {subtitle != null ? (
+            <CardDescription className="truncate text-xs">{subtitle}</CardDescription>
+          ) : null}
         </div>
         {status ? <div className="shrink-0 self-start text-xs">{status}</div> : null}
       </CardHeader>
@@ -95,7 +121,11 @@ function CatalogCard({
         <p
           className={cn(
             "text-muted-foreground",
-            descriptionLines === 1 ? "truncate" : "line-clamp-2 min-h-10 text-balance",
+            descriptionLines === 1
+              ? "truncate"
+              : descriptionLines === 2
+                ? "line-clamp-2 min-h-10 text-balance"
+                : "text-balance",
           )}
           title={
             descriptionLines === 1 && typeof description === "string" ? description : undefined
@@ -105,7 +135,7 @@ function CatalogCard({
         </p>
         {details}
       </CardContent>
-      {meta.length || action ? (
+      {meta.length || badge || action ? (
         <CardFooter className="min-h-12 flex-wrap justify-between gap-x-3 gap-y-2 py-2.5 text-xs text-muted-foreground tabular-nums">
           {meta.length ? (
             <span className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
@@ -117,7 +147,12 @@ function CatalogCard({
               ))}
             </span>
           ) : null}
-          {action ? <div className="ml-auto">{action}</div> : null}
+          {badge || action ? (
+            <div className={cn("ml-auto flex items-center gap-2", stretched && "relative z-10")}>
+              {badge}
+              {action}
+            </div>
+          ) : null}
         </CardFooter>
       ) : null}
     </Card>
@@ -129,7 +164,9 @@ function CatalogCard({
     render,
   });
 
-  return linked ? link : card;
+  if (!linked) return card;
+  if (stretched) return <div className="group h-full">{card}</div>;
+  return link;
 }
 
 export { CatalogCard, CatalogTile, type CatalogCardProps };
