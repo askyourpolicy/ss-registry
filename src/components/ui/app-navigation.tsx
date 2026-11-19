@@ -112,10 +112,7 @@ function AppNavigationLink({
                 {icon}
               </span>
             ) : null}
-            <span
-              className={cn("min-w-0 truncate", variant === "header" && "relative top-px")}
-              data-slot="app-navigation-link-label"
-            >
+            <span className="min-w-0 truncate" data-slot="app-navigation-link-label">
               {children}
             </span>
             {trailing != null ? (
@@ -128,11 +125,13 @@ function AppNavigationLink({
         className: cn(
           "outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50",
           variant === "header"
-            ? "flex h-(--app-header-height) items-center gap-1.5 border-b-2 border-transparent px-2 text-sm leading-5 font-medium text-muted-foreground hover:text-foreground focus-visible:border-ring"
+            ? // The underline is the bottom border, and the top border is its transparent twin: the
+              // label stays centred in the header, on the same baseline as the brand beside it.
+              "flex h-(--app-header-height) items-center gap-1.5 border-y-2 border-transparent px-2 font-sans text-sm leading-5 font-medium text-muted-foreground hover:text-foreground focus-visible:border-b-ring"
             : "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
           active &&
             (variant === "header"
-              ? "border-foreground text-foreground"
+              ? "border-b-foreground text-foreground"
               : "bg-sidebar-accent text-sidebar-accent-foreground"),
           className,
         ),

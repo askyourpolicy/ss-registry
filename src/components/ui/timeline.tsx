@@ -25,7 +25,10 @@ function TimelineItem({ className, ...props }: React.ComponentProps<"li">) {
 function TimelineRail({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
-      className={cn("flex min-h-full flex-col items-center", className)}
+      // As tall as its item by stretching in the item's grid row, not by a percentage of it: Safari
+      // holds a row at its old height for a percentage, so the item would not shrink again when
+      // what is beside the rail does (a section that folds away).
+      className={cn("flex flex-col items-center self-stretch", className)}
       data-slot="timeline-rail"
       {...props}
     />

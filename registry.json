@@ -744,6 +744,19 @@
       ]
     },
     {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "description": "Stitch scroll area with a scrollbar that shows while in use (or none), and an optional fade at the edges that have more to scroll to.",
+      "registryDependencies": ["askyourpolicy/ss-registry/stitch-base"],
+      "files": [
+        {
+          "path": "src/components/ui/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "search-params",
       "type": "registry:lib",
       "title": "Search Params",
