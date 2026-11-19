@@ -1,5 +1,5 @@
 diff --git a/lib/read.js b/lib/read.js
-index bf1a1df420ed3d072cad6002ae235e64e8d26281..3627c24cbda80f9c1bc45a08195411650befbb15 100644
+index ab48aba62913b346cb4e81db9750355bd328404b..61e6bff03425957ad597a8edbcb33a9fce1a3e30 100644
 --- a/lib/read.js
 +++ b/lib/read.js
 @@ -12,7 +12,20 @@
@@ -24,11 +24,13 @@ index bf1a1df420ed3d072cad6002ae235e64e8d26281..3627c24cbda80f9c1bc45a0819541165
  const iconv = require('iconv-lite')
  const onFinished = require('on-finished')
  const zlib = require('node:zlib')
-@@ -99,6 +112,7 @@ function read (req, res, next, parse, debug, options) {
-   opts.encoding = verify
-     ? null
-     : encoding
-+  opts.decoder = iconv.getDecoder
+@@ -126,7 +139,8 @@ function read (req, res, next, parse, debug, options) {
+   const rawBodyOptions = {
+     length,
+     encoding: verify ? null : encoding,
+-    limit: options.limit
++    limit: options.limit,
++    decoder: iconv.getDecoder
+   }
  
-   // assert charset is supported
-   if (opts.encoding === null && encoding !== null && !iconv.encodingExists(encoding)) {
+   // read body
