@@ -124,6 +124,8 @@ export function TotpEnrollmentForm({
           <CollapsibleContent>
             <CopyButton
               className="h-auto w-full justify-between px-3 py-2 whitespace-normal"
+              copiedText={null}
+              errorText={null}
               label="setup key"
               size="default"
               value={enrollment.secret}
